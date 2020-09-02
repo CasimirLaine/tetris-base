@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+group 'com.laine.casimir.tetris.base'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
