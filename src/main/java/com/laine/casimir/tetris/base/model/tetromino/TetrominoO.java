@@ -6,4 +6,14 @@ public class TetrominoO extends AbstractTetromino {
     public String getColorHex() {
         return "#FFFF00";
     }
+
+    @Override
+    protected int[] getSquareCoordinates() {
+        return new int[]{
+                0, 0,
+                1, 0,
+                0, 1,
+                1, 1
+        };
+    }
 }
