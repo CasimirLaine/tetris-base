@@ -7,7 +7,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class TetrominoBag {
+class TetrominoBag {
+
+    public static final int PREVIEW_COUNT = 1;
 
     private final Random random = new Random();
 
@@ -29,7 +31,14 @@ public class TetrominoBag {
         if (tetrominos.isEmpty()) {
             return null;
         }
-        return tetrominos.get(random.nextInt(tetrominos.size()));
+        return tetrominos.remove(0);
+    }
+
+    public AbstractTetromino getPreview(int index) {
+        if (index >= tetrominos.size()) {
+            return null;
+        }
+        return tetrominos.get(index);
     }
 
     public boolean isEmpty() {
