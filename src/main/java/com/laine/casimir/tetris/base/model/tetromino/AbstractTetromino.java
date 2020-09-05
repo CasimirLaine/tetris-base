@@ -4,6 +4,10 @@ import com.laine.casimir.tetris.base.model.Position;
 
 public abstract class AbstractTetromino {
 
+    private static final int ROTATION_COUNT = 4;
+
+    protected int rotationIndex = 0;
+
     public abstract String getColorHex();
 
     protected abstract int[] getSquareCoordinates();
@@ -16,5 +20,15 @@ public abstract class AbstractTetromino {
             positions[index] = position;
         }
         return positions;
+    }
+
+    public void rotateClockwise() {
+        rotationIndex++;
+        rotationIndex %= ROTATION_COUNT;
+    }
+
+    public void rotateCounterclockwise() {
+        rotationIndex--;
+        rotationIndex %= ROTATION_COUNT;
     }
 }
