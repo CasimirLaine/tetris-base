@@ -1,10 +1,22 @@
 package com.laine.casimir.tetris.base.model.tetromino;
 
+import com.laine.casimir.tetris.base.model.Position;
+
 public class TetrominoO extends AbstractTetromino {
 
     @Override
     public String getColorHex() {
         return "#FFFF00";
+    }
+
+    @Override
+    public double getSpawnLocation() {
+        return 0.5;
+    }
+
+    @Override
+    public Position getRotationPoint() {
+        return new Position(0, 0);
     }
 
     @Override

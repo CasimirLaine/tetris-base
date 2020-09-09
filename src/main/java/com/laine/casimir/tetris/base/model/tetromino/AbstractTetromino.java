@@ -8,9 +8,63 @@ public abstract class AbstractTetromino {
 
     protected int rotationIndex = 0;
 
-    public abstract String getColorHex();
-
-    protected abstract int[] getSquareCoordinates();
+    public Position getKick(int kick) {
+        switch (kick) {
+            case 1:
+                switch (rotationIndex) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        return new Position(0, 0);
+                }
+            case 2:
+                switch (rotationIndex) {
+                    case 0:
+                        return new Position(-1, 0);
+                    case 1:
+                        return new Position(1, 0);
+                    case 2:
+                        return new Position(1, 0);
+                    case 3:
+                        return new Position(-1, 0);
+                }
+            case 3:
+                switch (rotationIndex) {
+                    case 0:
+                        return new Position(-1, -1);
+                    case 1:
+                        return new Position(1, 1);
+                    case 2:
+                        return new Position(1, -1);
+                    case 3:
+                        return new Position(-1, 1);
+                }
+            case 4:
+                switch (rotationIndex) {
+                    case 0:
+                        return new Position(0, 2);
+                    case 1:
+                        return new Position(0, -2);
+                    case 2:
+                        return new Position(0, 2);
+                    case 3:
+                        return new Position(0, -2);
+                }
+            case 5:
+                switch (rotationIndex) {
+                    case 0:
+                        return new Position(-1, 2);
+                    case 1:
+                        return new Position(1, -2);
+                    case 2:
+                        return new Position(1, 2);
+                    case 3:
+                        return new Position(-1, -2);
+                }
+        }
+        return null;
+    }
 
     public Position[] getSquarePositions() {
         final int[] squareCoordinates = getSquareCoordinates();
@@ -31,4 +85,12 @@ public abstract class AbstractTetromino {
         rotationIndex--;
         rotationIndex %= ROTATION_COUNT;
     }
+
+    public abstract String getColorHex();
+
+    public abstract double getSpawnLocation();
+
+    public abstract Position getRotationPoint();
+
+    protected abstract int[] getSquareCoordinates();
 }
