@@ -1,6 +1,15 @@
 package com.laine.casimir.tetris.base.control;
 
+import com.laine.casimir.tetris.base.model.TetrisGame;
+
 public class TetrisController {
+
+    private final TetrisGame tetrisGame;
+    private TetrisGameListener tetrisGameListener;
+
+    public TetrisController(TetrisGame tetrisGame) {
+        this.tetrisGame = tetrisGame;
+    }
 
     public void leftShift() {
 
@@ -31,6 +40,15 @@ public class TetrisController {
     }
 
     public void pause() {
+        tetrisGame.setPaused(!tetrisGame.isPaused());
+        tetrisGameListener.onEvent(tetrisGame.isPaused() ? TetrisEvent.PAUSE : TetrisEvent.RESUME);
+    }
 
+    public void setTetrisGameListener(TetrisGameListener tetrisGameListener) {
+        this.tetrisGameListener = tetrisGameListener;
+    }
+
+    public TetrisGame getTetrisGame() {
+        return tetrisGame;
     }
 }
