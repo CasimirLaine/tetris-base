@@ -10,7 +10,9 @@ public class HoldBox {
         return tetromino;
     }
 
-    public void setTetromino(AbstractTetromino tetromino) {
+    public AbstractTetromino setTetromino(AbstractTetromino tetromino) {
+        final AbstractTetromino currentTetromino = getTetromino();
         this.tetromino = tetromino;
+        return currentTetromino;
     }
 }

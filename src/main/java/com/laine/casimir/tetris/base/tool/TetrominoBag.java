@@ -5,13 +5,8 @@ import com.laine.casimir.tetris.base.model.tetromino.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 class TetrominoBag {
-
-    public static final int PREVIEW_COUNT = 1;
-
-    private final Random random = new Random();
 
     private final List<AbstractTetromino> tetrominos = new ArrayList<>();
 

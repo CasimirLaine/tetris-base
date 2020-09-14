@@ -1,4 +1,4 @@
-package com.laine.casimir.tetris.base.control;
+package com.laine.casimir.tetris.base.event;
 
 public interface TetrisGameListener {
 

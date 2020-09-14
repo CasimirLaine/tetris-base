@@ -2,6 +2,9 @@ package com.laine.casimir.tetris.base.model.tetromino;
 
 import com.laine.casimir.tetris.base.model.Position;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractTetromino {
 
     private static final int ROTATION_COUNT = 4;
@@ -93,4 +96,15 @@ public abstract class AbstractTetromino {
     public abstract Position getRotationPoint();
 
     protected abstract int[] getSquareCoordinates();
+
+    public List<Square> getSquares() {
+        final List<Square> squares = new ArrayList<>();
+        final Position[] positions = getSquarePositions();
+        for (final Position position : positions) {
+            final Square square = new Square(position);
+            square.setColorHex(getColorHex());
+            squares.add(square);
+        }
+        return squares;
+    }
 }
