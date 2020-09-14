@@ -5,9 +5,17 @@ public class Position {
     private int x;
     private int y;
 
+    public Position() {
+        this(0, 0);
+    }
+
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public boolean collides(Position position) {
+        return x == position.getX() && y == position.getY();
     }
 
     public int getX() {
