@@ -32,7 +32,7 @@ public class TetrisGame {
     }
 
     public void setPaused(boolean paused) {
-        final boolean changed = this.paused == paused;
+        final boolean changed = this.paused != paused;
         this.paused = paused;
         if (tetrisGameListener != null && changed) {
             tetrisGameListener.onEvent(isPaused() ? TetrisEvent.PAUSE : TetrisEvent.RESUME);
