@@ -23,7 +23,13 @@ public class TetrominoQueue {
         if (currentTetrominoBag.isEmpty()) {
             nextBag();
         }
-        return currentTetrominoBag.getPreview(index);
+        if (index < currentTetrominoBag.size()) {
+            return currentTetrominoBag.getPreview(index);
+        }
+        if (index - currentTetrominoBag.size() < nextTetrominoBag.size()) {
+            return nextTetrominoBag.getPreview(index - currentTetrominoBag.size());
+        }
+        return null;
     }
 
     private void nextBag() {
