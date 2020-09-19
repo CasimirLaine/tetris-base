@@ -36,6 +36,10 @@ class TetrominoBag {
         return tetrominos.get(index);
     }
 
+    public int size() {
+        return tetrominos.size();
+    }
+
     public boolean isEmpty() {
         return tetrominos.isEmpty();
     }

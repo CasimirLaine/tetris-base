@@ -16,10 +16,6 @@ public class TetrisController {
 
     }
 
-    public void stop() {
-
-    }
-
     public void shiftLeft() {
         final Playfield playfield = tetrisGame.getPlayfield();
         playfield.shiftLeft();

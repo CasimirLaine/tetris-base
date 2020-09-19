@@ -27,6 +27,10 @@ public class TetrisGame {
         return holdBox;
     }
 
+    public TetrominoQueue getTetrominoQueue() {
+        return tetrominoQueue;
+    }
+
     public boolean isPaused() {
         return paused;
     }
