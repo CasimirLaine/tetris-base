@@ -19,6 +19,9 @@ public class Playfield {
 
     private FallingTetromino fallingTetromino;
 
+    Playfield() {
+    }
+
     public void fall() {
         move(0, 1);
     }

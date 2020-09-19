@@ -8,7 +8,7 @@ public class Square {
 
     private String colorHex;
 
-    public Square(Position position) {
+    Square(Position position) {
         this.position.setX(position.getX());
         this.position.setY(position.getY());
     }
