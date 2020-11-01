@@ -1,6 +1,4 @@
-package com.laine.casimir.tetris.base.model.tetromino;
-
-import com.laine.casimir.tetris.base.model.Position;
+package com.laine.casimir.tetris.base.model;
 
 public class Square {
 
@@ -8,7 +6,7 @@ public class Square {
 
     private String colorHex;
 
-    Square(Position position) {
+    public Square(Position position) {
         this.position.setX(position.getX());
         this.position.setY(position.getY());
     }

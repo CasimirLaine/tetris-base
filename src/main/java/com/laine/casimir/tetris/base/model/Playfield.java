@@ -1,8 +1,6 @@
 package com.laine.casimir.tetris.base.model;
 
 import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
-import com.laine.casimir.tetris.base.model.tetromino.FallingTetromino;
-import com.laine.casimir.tetris.base.model.tetromino.Square;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +37,39 @@ public class Playfield {
     }
 
     private void move(int moveX, int moveY) {
-
+        if (fallingTetromino == null) {
+            return;
+        }
+        final List<Square> squares = fallingTetromino.getSquares();
+        boolean collides = false;
+        for (int index = 0; index < squares.size(); index++) {
+            final Square square = squares.get(index);
+            if (collides(square.getPosition().getX() + fallingTetromino.getPosition().getX() + moveX,
+                    square.getPosition().getY() + fallingTetromino.getPosition().getY() + moveY)) {
+                collides = true;
+                break;
+            }
+        }
+        if (!collides) {
+            fallingTetromino.move(moveX, moveY);
+        } else {
+            for (int index = 0; index < squares.size(); index++) {
+                final Square square = squares.get(index);
+                square.getPosition().setX(square.getPosition().getX() + fallingTetromino.getPosition().getX());
+                square.getPosition().setY(square.getPosition().getY() + fallingTetromino.getPosition().getY());
+                landedSquares.add(square);
+            }
+            fallingTetromino = null;
+        }
     }
 
-    public boolean collides(Square square) {
-        if (square.getPosition().getY() < 0 || square.getPosition().getY() >= HEIGHT) {
-            return true;
-        }
-        if (square.getPosition().getX() < 0 || square.getPosition().getX() >= WIDTH) {
+    private boolean collides(int x, int y) {
+        if (y < 0 || y >= VISIBLE_HEIGHT || x < 0 || x >= WIDTH) {
             return true;
         }
         for (int index = 0; index < landedSquares.size(); index++) {
             final Square landedSquare = landedSquares.get(index);
-            if (landedSquare.getPosition().collides(square.getPosition())) {
+            if (landedSquare.getPosition().collides(x, y)) {
                 return true;
             }
         }

@@ -1,4 +1,6 @@
-package com.laine.casimir.tetris.base.model.tetromino;
+package com.laine.casimir.tetris.base.model;
+
+import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +10,18 @@ public class FallingTetromino {
     private final AbstractTetromino tetromino;
     private final List<Square> squares = new ArrayList<>();
 
+    private final Position position = new Position();
+
     private boolean takenFromHoldBox;
 
-    public FallingTetromino(AbstractTetromino tetromino) {
+    FallingTetromino(AbstractTetromino tetromino) {
         this.tetromino = tetromino;
         squares.addAll(tetromino.getSquares());
+    }
+
+    void move(int moveX, int moveY) {
+        position.setX(position.getX() + moveX);
+        position.setY(position.getY() + moveY);
     }
 
     public boolean isTakenFromHoldBox() {
@@ -25,5 +34,13 @@ public class FallingTetromino {
 
     public AbstractTetromino getTetromino() {
         return tetromino;
+    }
+
+    public List<Square> getSquares() {
+        return squares;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }

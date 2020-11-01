@@ -15,7 +15,11 @@ public class Position {
     }
 
     public boolean collides(Position position) {
-        return x == position.getX() && y == position.getY();
+        return collides(position.getX(), position.getY());
+    }
+
+    public boolean collides(int x, int y) {
+        return this.x == x && this.y == y;
     }
 
     public int getX() {

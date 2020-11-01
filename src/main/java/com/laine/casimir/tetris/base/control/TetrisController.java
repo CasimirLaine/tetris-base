@@ -5,7 +5,7 @@ import com.laine.casimir.tetris.base.event.TetrisGameListener;
 import com.laine.casimir.tetris.base.model.Playfield;
 import com.laine.casimir.tetris.base.model.TetrisGame;
 import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
-import com.laine.casimir.tetris.base.model.tetromino.FallingTetromino;
+import com.laine.casimir.tetris.base.model.FallingTetromino;
 
 public final class TetrisController {
 
@@ -27,6 +27,11 @@ public final class TetrisController {
     }
 
     public void drop() {
+        if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
+            tetrisManager.nextTetromino();
+        } else {
+            tetrisGame.getPlayfield().fall();
+        }
         tetrisGameListener.onEvent(TetrisEvent.DROP);
     }
 
@@ -81,7 +86,7 @@ public final class TetrisController {
 
     public void pause() {
         final boolean changed = !tetrisGame.isPaused();
-        tetrisGame.setPaused(!tetrisGame.isPaused());
+        tetrisGame.setPaused(true);
         if (changed) {
             tetrisGameListener.onEvent(TetrisEvent.PAUSE);
         }
