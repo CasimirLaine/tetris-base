@@ -21,7 +21,17 @@ public class Playfield {
     }
 
     public void fall() {
-        move(0, 1);
+        final boolean moved = move(0, 1);
+        if (!moved) {
+            final List<Square> squares = fallingTetromino.getSquares();
+            for (int index = 0; index < squares.size(); index++) {
+                final Square square = squares.get(index);
+                square.getPosition().setX(square.getPosition().getX() + fallingTetromino.getPosition().getX());
+                square.getPosition().setY(square.getPosition().getY() + fallingTetromino.getPosition().getY());
+                landedSquares.add(square);
+            }
+            fallingTetromino = null;
+        }
     }
 
     public void drop() {
@@ -36,9 +46,9 @@ public class Playfield {
         move(1, 0);
     }
 
-    private void move(int moveX, int moveY) {
+    private boolean move(int moveX, int moveY) {
         if (fallingTetromino == null) {
-            return;
+            return true;
         }
         final List<Square> squares = fallingTetromino.getSquares();
         boolean collides = false;
@@ -52,15 +62,8 @@ public class Playfield {
         }
         if (!collides) {
             fallingTetromino.move(moveX, moveY);
-        } else {
-            for (int index = 0; index < squares.size(); index++) {
-                final Square square = squares.get(index);
-                square.getPosition().setX(square.getPosition().getX() + fallingTetromino.getPosition().getX());
-                square.getPosition().setY(square.getPosition().getY() + fallingTetromino.getPosition().getY());
-                landedSquares.add(square);
-            }
-            fallingTetromino = null;
         }
+        return !collides;
     }
 
     private boolean collides(int x, int y) {
