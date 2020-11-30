@@ -76,11 +76,13 @@ public final class TetrisController {
         }
         final AbstractTetromino heldTetromino = tetrisGame.getHoldBox().setTetromino(fallingTetromino.getTetromino());
         tetrisGame.getPlayfield().setFallingTetromino(heldTetromino);
+        if (heldTetromino == null) {
+            tetrisManager.nextTetromino();
+        }
         final FallingTetromino newFallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (newFallingTetromino != null) {
             newFallingTetromino.setTakenFromHoldBox(true);
         }
-        tetrisManager.nextTetromino();
         tetrisGameListener.onEvent(TetrisEvent.HOLD_BOX_UPDATE);
     }
 
