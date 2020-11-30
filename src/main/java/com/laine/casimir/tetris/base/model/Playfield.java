@@ -37,6 +37,12 @@ public class Playfield {
                 index--;
             }
         }
+        for (int index = 0; index < landedSquares.size(); index++) {
+            final Square square = landedSquares.get(index);
+            if (square.getPosition().getY() < y) {
+                square.getPosition().setY(square.getPosition().getY() + 1);
+            }
+        }
     }
 
     public void fall() {
