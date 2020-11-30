@@ -5,10 +5,14 @@ import com.laine.casimir.tetris.base.tool.TetrominoQueue;
 
 public class TetrisGame {
 
+    private static final float START_INTERVAL = 1_000;
+    private static final float MIN_INTERVAL = 100;
+
     private final Playfield playfield = new Playfield();
     private final HoldBox holdBox = new HoldBox();
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
 
+    private float speed = 1F;
     private boolean paused;
 
     public Playfield getPlayfield() {
@@ -29,5 +33,9 @@ public class TetrisGame {
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public int getDropInterval() {
+        return (int) Math.max(START_INTERVAL / speed, MIN_INTERVAL);
     }
 }
