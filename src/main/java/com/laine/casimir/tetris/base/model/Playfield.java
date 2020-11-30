@@ -20,6 +20,25 @@ public class Playfield {
     Playfield() {
     }
 
+    private boolean checkRow(int y) {
+        for (int x = 0; x < WIDTH; x++) {
+            if (!collides(x, y)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void clearRow(int y) {
+        for (int index = 0; index < landedSquares.size(); index++) {
+            final Square square = landedSquares.get(index);
+            if (square.getPosition().getY() == y) {
+                landedSquares.remove(index);
+                index--;
+            }
+        }
+    }
+
     public void fall() {
         final boolean moved = move(0, 1);
         if (!moved) {
@@ -29,6 +48,13 @@ public class Playfield {
                 square.getPosition().setX(square.getPosition().getX() + fallingTetromino.getPosition().getX());
                 square.getPosition().setY(square.getPosition().getY() + fallingTetromino.getPosition().getY());
                 landedSquares.add(square);
+            }
+            for (int index = 0; index < squares.size(); index++) {
+                final int y = squares.get(index).getPosition().getY();
+                final boolean shouldClear = checkRow(y);
+                if (shouldClear) {
+                    clearRow(y);
+                }
             }
             fallingTetromino = null;
         }
