@@ -14,5 +14,8 @@ final class TetrisManager {
     public void nextTetromino() {
         final AbstractTetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
         tetrisGame.getPlayfield().setFallingTetromino(nextTetromino);
+        if (tetrisGame.getPlayfield().isPieceLocked()) {
+            tetrisGame.end();
+        }
     }
 }

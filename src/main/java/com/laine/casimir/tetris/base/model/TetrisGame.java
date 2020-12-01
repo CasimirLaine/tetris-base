@@ -6,14 +6,19 @@ import com.laine.casimir.tetris.base.tool.TetrominoQueue;
 public class TetrisGame {
 
     private static final float START_INTERVAL = 1_000;
-    private static final float MIN_INTERVAL = 100;
+    private static final float MIN_INTERVAL = 25;
 
     private final Playfield playfield = new Playfield();
     private final HoldBox holdBox = new HoldBox();
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
 
-    private float speed = 1F;
+    private float speed = START_INTERVAL;
+    private boolean gameOver;
     private boolean paused;
+
+    public void end() {
+        gameOver = true;
+    }
 
     public Playfield getPlayfield() {
         return playfield;
@@ -37,5 +42,9 @@ public class TetrisGame {
 
     public int getDropInterval() {
         return (int) Math.max(START_INTERVAL / speed, MIN_INTERVAL);
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 }

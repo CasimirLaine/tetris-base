@@ -27,6 +27,9 @@ public final class TetrisController {
     }
 
     public void drop() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
             tetrisManager.nextTetromino();
         } else {
@@ -36,16 +39,25 @@ public final class TetrisController {
     }
 
     public void shiftLeft() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final Playfield playfield = tetrisGame.getPlayfield();
         playfield.shiftLeft();
     }
 
     public void shiftRight() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final Playfield playfield = tetrisGame.getPlayfield();
         playfield.shiftRight();
     }
 
     public void rotateClockwise() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino != null) {
             fallingTetromino.getTetromino().rotateClockwise();
@@ -53,6 +65,9 @@ public final class TetrisController {
     }
 
     public void rotateCounterclockwise() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino != null) {
             fallingTetromino.getTetromino().rotateCounterclockwise();
@@ -60,16 +75,25 @@ public final class TetrisController {
     }
 
     public void hardDrop() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final Playfield playfield = tetrisGame.getPlayfield();
         playfield.drop();
     }
 
     public void softDrop() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final Playfield playfield = tetrisGame.getPlayfield();
         playfield.fall();
     }
 
     public void hold() {
+        if (tetrisGame.isGameOver()) {
+            return;
+        }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino == null || fallingTetromino.isTakenFromHoldBox()) {
             return;

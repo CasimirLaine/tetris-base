@@ -17,6 +17,10 @@ public class Playfield {
 
     private FallingTetromino fallingTetromino;
 
+    private int clearedRows;
+
+    private boolean pieceLocked;
+
     Playfield() {
     }
 
@@ -43,6 +47,7 @@ public class Playfield {
                 square.getPosition().setY(square.getPosition().getY() + 1);
             }
         }
+        clearedRows++;
     }
 
     public void fall() {
@@ -84,13 +89,20 @@ public class Playfield {
         }
         final List<Square> squares = fallingTetromino.getSquares();
         boolean collides = false;
+        boolean pushedOutOfBounds = true;
         for (int index = 0; index < squares.size(); index++) {
             final Square square = squares.get(index);
-            if (collides(square.getPosition().getX() + fallingTetromino.getPosition().getX() + moveX,
+            if (square.getPosition().getY() + fallingTetromino.getPosition().getY() >= 0) {
+                pushedOutOfBounds = false;
+            }
+            if (collides || collides(square.getPosition().getX() + fallingTetromino.getPosition().getX() + moveX,
                     square.getPosition().getY() + fallingTetromino.getPosition().getY() + moveY)) {
                 collides = true;
-                break;
             }
+        }
+        if (pushedOutOfBounds) {
+            pieceLocked = true;
+            return false;
         }
         if (!collides) {
             fallingTetromino.move(moveX, moveY);
@@ -99,7 +111,7 @@ public class Playfield {
     }
 
     private boolean collides(int x, int y) {
-        if (y < 0 || y >= VISIBLE_HEIGHT || x < 0 || x >= WIDTH) {
+        if (y < VISIBLE_HEIGHT - HEIGHT || y >= VISIBLE_HEIGHT || x < 0 || x >= WIDTH) {
             return true;
         }
         for (int index = 0; index < landedSquares.size(); index++) {
@@ -121,9 +133,20 @@ public class Playfield {
         } else {
             this.fallingTetromino = null;
         }
+        while (!move(0, 0) && !pieceLocked) {
+            this.fallingTetromino.move(0, -1);
+        }
     }
 
     public List<Square> getLandedSquares() {
         return landedSquares;
+    }
+
+    public boolean isPieceLocked() {
+        return pieceLocked;
+    }
+
+    public int getClearedRows() {
+        return clearedRows;
     }
 }
