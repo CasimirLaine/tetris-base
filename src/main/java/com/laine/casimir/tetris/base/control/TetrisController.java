@@ -23,7 +23,6 @@ public final class TetrisController {
     public void start() {
         tetrisGame.getHoldBox().setTetromino(null);
         tetrisGame.setPaused(false);
-        tetrisGameListener.onEvent(TetrisEvent.GAME_START);
     }
 
     public void drop() {
@@ -35,7 +34,6 @@ public final class TetrisController {
         } else {
             tetrisGame.getPlayfield().fall();
         }
-        tetrisGameListener.onEvent(TetrisEvent.DROP);
     }
 
     public void shiftLeft() {
@@ -107,7 +105,6 @@ public final class TetrisController {
         if (newFallingTetromino != null) {
             newFallingTetromino.setTakenFromHoldBox(true);
         }
-        tetrisGameListener.onEvent(TetrisEvent.HOLD_BOX_UPDATE);
     }
 
     public void pause() {

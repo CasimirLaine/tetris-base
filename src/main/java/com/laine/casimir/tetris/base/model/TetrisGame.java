@@ -12,7 +12,7 @@ public class TetrisGame {
     private final HoldBox holdBox = new HoldBox();
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
 
-    private float speed = START_INTERVAL;
+    private float speed = 1F;
     private boolean gameOver;
     private boolean paused;
 
