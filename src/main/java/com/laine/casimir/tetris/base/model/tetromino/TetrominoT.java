@@ -10,11 +10,6 @@ public class TetrominoT extends AbstractTetromino {
     }
 
     @Override
-    public double getSpawnLocation() {
-        return 0.4;
-    }
-
-    @Override
     public Position getRotationPoint() {
         return new Position(1, 1);
     }

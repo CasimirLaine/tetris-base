@@ -92,8 +92,6 @@ public abstract class AbstractTetromino {
 
     public abstract String getColorHex();
 
-    public abstract double getSpawnLocation();
-
     public abstract Position getRotationPoint();
 
     protected abstract int[] getSquareCoordinates();
