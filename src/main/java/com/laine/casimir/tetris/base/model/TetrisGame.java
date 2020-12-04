@@ -47,4 +47,8 @@ public class TetrisGame {
     public boolean isGameOver() {
         return gameOver;
     }
+
+    public boolean isRunning() {
+        return !isPaused() && !isGameOver();
+    }
 }

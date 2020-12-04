@@ -1,19 +1,15 @@
 package com.laine.casimir.tetris.base.control;
 
-import com.laine.casimir.tetris.base.event.TetrisEvent;
-import com.laine.casimir.tetris.base.event.TetrisGameListener;
+import com.laine.casimir.tetris.base.model.FallingTetromino;
 import com.laine.casimir.tetris.base.model.Playfield;
 import com.laine.casimir.tetris.base.model.TetrisGame;
 import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
-import com.laine.casimir.tetris.base.model.FallingTetromino;
 
 public final class TetrisController {
 
     private final TetrisManager tetrisManager;
 
     private final TetrisGame tetrisGame;
-
-    private TetrisGameListener tetrisGameListener;
 
     public TetrisController(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
@@ -26,7 +22,7 @@ public final class TetrisController {
     }
 
     public void drop() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
@@ -37,7 +33,7 @@ public final class TetrisController {
     }
 
     public void shiftLeft() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final Playfield playfield = tetrisGame.getPlayfield();
@@ -45,7 +41,7 @@ public final class TetrisController {
     }
 
     public void shiftRight() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final Playfield playfield = tetrisGame.getPlayfield();
@@ -53,7 +49,7 @@ public final class TetrisController {
     }
 
     public void rotateClockwise() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
@@ -63,7 +59,7 @@ public final class TetrisController {
     }
 
     public void rotateCounterclockwise() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
@@ -73,7 +69,7 @@ public final class TetrisController {
     }
 
     public void hardDrop() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final Playfield playfield = tetrisGame.getPlayfield();
@@ -81,7 +77,7 @@ public final class TetrisController {
     }
 
     public void softDrop() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final Playfield playfield = tetrisGame.getPlayfield();
@@ -89,7 +85,7 @@ public final class TetrisController {
     }
 
     public void hold() {
-        if (tetrisGame.isGameOver()) {
+        if (!tetrisGame.isRunning()) {
             return;
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
@@ -108,22 +104,10 @@ public final class TetrisController {
     }
 
     public void pause() {
-        final boolean changed = !tetrisGame.isPaused();
         tetrisGame.setPaused(true);
-        if (changed) {
-            tetrisGameListener.onEvent(TetrisEvent.PAUSE);
-        }
     }
 
     public void resume() {
-        final boolean changed = tetrisGame.isPaused();
         tetrisGame.setPaused(false);
-        if (changed) {
-            tetrisGameListener.onEvent(TetrisEvent.RESUME);
-        }
-    }
-
-    public void setTetrisGameListener(TetrisGameListener tetrisGameListener) {
-        this.tetrisGameListener = tetrisGameListener;
     }
 }
