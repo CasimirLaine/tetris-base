@@ -17,7 +17,7 @@ public class Playfield {
 
     private int clearedRows;
 
-    private boolean pieceLocked;
+    private boolean pieceLockedOutOfBounds;
 
     Playfield() {
     }
@@ -85,25 +85,27 @@ public class Playfield {
         if (fallingTetromino == null) {
             return true;
         }
+        pieceLockedOutOfBounds = false;
         final List<Square> squares = fallingTetromino.getSquares();
         boolean collides = false;
-        boolean pushedOutOfBounds = true;
+        boolean pushedOutOfBounds = false;
         for (int index = 0; index < squares.size(); index++) {
             final Square square = squares.get(index);
-            if (square.getPosition().getY() + fallingTetromino.getPosition().getY() >= 0) {
-                pushedOutOfBounds = false;
+            if (pushedOutOfBounds || square.getPosition().getY() + fallingTetromino.getPosition().getY() < 0) {
+                pushedOutOfBounds = true;
             }
             if (collides || collides(square.getPosition().getX() + fallingTetromino.getPosition().getX() + moveX,
                     square.getPosition().getY() + fallingTetromino.getPosition().getY() + moveY)) {
                 collides = true;
             }
         }
-        if (pushedOutOfBounds) {
-            pieceLocked = true;
-            return false;
+        if (pushedOutOfBounds && collides) {
+            pieceLockedOutOfBounds = true;
         }
         if (!collides) {
             fallingTetromino.move(moveX, moveY);
+        } else {
+            fallingTetromino.move(0, Math.min(moveY, 0));
         }
         return !collides;
     }
@@ -131,7 +133,7 @@ public class Playfield {
         } else {
             this.fallingTetromino = null;
         }
-        while (!move(0, 0) && !pieceLocked) {
+        while (!move(0, 0)) {
             this.fallingTetromino.move(0, -1);
         }
     }
@@ -140,8 +142,8 @@ public class Playfield {
         return landedSquares;
     }
 
-    public boolean isPieceLocked() {
-        return pieceLocked;
+    public boolean isPieceLockedOutOfBounds() {
+        return pieceLockedOutOfBounds;
     }
 
     public int getClearedRows() {

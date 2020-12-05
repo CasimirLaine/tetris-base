@@ -12,10 +12,11 @@ final class TetrisManager {
     }
 
     public void nextTetromino() {
+        if (tetrisGame.getPlayfield().isPieceLockedOutOfBounds()) {
+            tetrisGame.end();
+            return;
+        }
         final AbstractTetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
         tetrisGame.getPlayfield().setFallingTetromino(nextTetromino);
-        if (tetrisGame.getPlayfield().isPieceLocked()) {
-            tetrisGame.end();
-        }
     }
 }
