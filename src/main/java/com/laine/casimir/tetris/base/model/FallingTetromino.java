@@ -16,7 +16,7 @@ public class FallingTetromino {
 
     FallingTetromino(AbstractTetromino tetromino) {
         this.tetromino = tetromino;
-        move((int) (0.5F * Playfield.WIDTH) - tetromino.getRotationPoint().getX() - 1, 0);
+        move((int) (0.5F * Playfield.WIDTH) - tetromino.getRotationPoint().getX() - 1, -2);
         squares.addAll(tetromino.getSquares());
     }
 

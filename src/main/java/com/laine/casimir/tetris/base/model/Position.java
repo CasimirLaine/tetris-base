@@ -37,4 +37,9 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj.getClass() == getClass() && ((Position) obj).x == x && ((Position) obj).y == y;
+    }
 }
