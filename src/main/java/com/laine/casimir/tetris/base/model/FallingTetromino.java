@@ -1,23 +1,20 @@
 package com.laine.casimir.tetris.base.model;
 
-import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
+import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FallingTetromino {
 
-    private final AbstractTetromino tetromino;
-    private final List<Square> squares = new ArrayList<>();
+    private final Tetromino tetromino;
 
     private final Position position = new Position();
 
     private boolean takenFromHoldBox;
 
-    FallingTetromino(AbstractTetromino tetromino) {
+    FallingTetromino(Tetromino tetromino) {
         this.tetromino = tetromino;
-        move((int) (0.5F * Playfield.WIDTH) - tetromino.getRotationPoint().getX() - 1, -2);
-        squares.addAll(tetromino.getSquares());
+        move((int) (0.5F * Playfield.WIDTH - Math.ceil(tetromino.getDimension() * 0.5F)), -tetromino.getDimension() + 1);
     }
 
     void move(int moveX, int moveY) {
@@ -33,12 +30,12 @@ public class FallingTetromino {
         this.takenFromHoldBox = takenFromHoldBox;
     }
 
-    public AbstractTetromino getTetromino() {
+    public Tetromino getTetromino() {
         return tetromino;
     }
 
     public List<Square> getSquares() {
-        return squares;
+        return tetromino.getSquares();
     }
 
     public Position getPosition() {

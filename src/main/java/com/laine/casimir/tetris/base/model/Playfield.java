@@ -1,6 +1,6 @@
 package com.laine.casimir.tetris.base.model;
 
-import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
+import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +127,7 @@ public class Playfield {
         return fallingTetromino;
     }
 
-    public void setFallingTetromino(AbstractTetromino fallingTetromino) {
+    public void setFallingTetromino(Tetromino fallingTetromino) {
         if (fallingTetromino != null) {
             this.fallingTetromino = new FallingTetromino(fallingTetromino);
         } else {

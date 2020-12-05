@@ -1,7 +1,7 @@
 package com.laine.casimir.tetris.base.control;
 
 import com.laine.casimir.tetris.base.model.TetrisGame;
-import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
+import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
 
 final class TetrisManager {
 
@@ -16,7 +16,7 @@ final class TetrisManager {
             tetrisGame.end();
             return;
         }
-        final AbstractTetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
+        final Tetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
         tetrisGame.getPlayfield().setFallingTetromino(nextTetromino);
     }
 }

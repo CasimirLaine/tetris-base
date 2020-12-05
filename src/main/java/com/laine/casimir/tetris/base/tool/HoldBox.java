@@ -1,17 +1,17 @@
 package com.laine.casimir.tetris.base.tool;
 
-import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
+import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
 
 public class HoldBox {
 
-    private AbstractTetromino tetromino;
+    private Tetromino tetromino;
 
-    public AbstractTetromino getTetromino() {
+    public Tetromino getTetromino() {
         return tetromino;
     }
 
-    public AbstractTetromino setTetromino(AbstractTetromino tetromino) {
-        final AbstractTetromino currentTetromino = getTetromino();
+    public Tetromino setTetromino(Tetromino tetromino) {
+        final Tetromino currentTetromino = getTetromino();
         this.tetromino = tetromino;
         return currentTetromino;
     }

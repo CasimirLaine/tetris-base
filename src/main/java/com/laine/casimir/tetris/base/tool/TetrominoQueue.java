@@ -1,6 +1,6 @@
 package com.laine.casimir.tetris.base.tool;
 
-import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
+import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
 
 public class TetrominoQueue {
 
@@ -12,14 +12,14 @@ public class TetrominoQueue {
         nextBag();
     }
 
-    public AbstractTetromino pick() {
+    public Tetromino pick() {
         if (currentTetrominoBag.isEmpty()) {
             nextBag();
         }
         return currentTetrominoBag.pick();
     }
 
-    public AbstractTetromino getPreview(int index) {
+    public Tetromino getPreview(int index) {
         if (currentTetrominoBag.isEmpty()) {
             nextBag();
         }

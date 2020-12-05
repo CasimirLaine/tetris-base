@@ -3,7 +3,7 @@ package com.laine.casimir.tetris.base.control;
 import com.laine.casimir.tetris.base.model.FallingTetromino;
 import com.laine.casimir.tetris.base.model.Playfield;
 import com.laine.casimir.tetris.base.model.TetrisGame;
-import com.laine.casimir.tetris.base.model.tetromino.AbstractTetromino;
+import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
 
 public final class TetrisController {
 
@@ -101,7 +101,7 @@ public final class TetrisController {
         if (fallingTetromino == null || fallingTetromino.isTakenFromHoldBox()) {
             return;
         }
-        final AbstractTetromino heldTetromino = tetrisGame.getHoldBox().setTetromino(fallingTetromino.getTetromino());
+        final Tetromino heldTetromino = tetrisGame.getHoldBox().setTetromino(fallingTetromino.getTetromino());
         tetrisGame.getPlayfield().setFallingTetromino(heldTetromino);
         if (heldTetromino == null) {
             tetrisManager.nextTetromino();
