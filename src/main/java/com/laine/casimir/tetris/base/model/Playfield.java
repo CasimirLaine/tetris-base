@@ -1,7 +1,5 @@
 package com.laine.casimir.tetris.base.model;
 
-import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
-
 import java.util.ArrayList;
 import java.util.List;
 

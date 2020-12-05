@@ -1,6 +1,6 @@
 package com.laine.casimir.tetris.base.tool;
 
-import com.laine.casimir.tetris.base.model.tetromino.Tetromino;
+import com.laine.casimir.tetris.base.model.Tetromino;
 
 public class HoldBox {
 

@@ -1,4 +1,4 @@
-package com.laine.casimir.tetris.base.model.tetromino;
+package com.laine.casimir.tetris.base.model;
 
 import com.laine.casimir.tetris.base.model.Position;
 import com.laine.casimir.tetris.base.model.Square;
