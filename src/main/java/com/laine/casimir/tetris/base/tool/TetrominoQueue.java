@@ -2,7 +2,7 @@ package com.laine.casimir.tetris.base.tool;
 
 import com.laine.casimir.tetris.base.model.Tetromino;
 
-public class TetrominoQueue {
+public final class TetrominoQueue {
 
     private TetrominoBag currentTetrominoBag;
     private TetrominoBag nextTetrominoBag;

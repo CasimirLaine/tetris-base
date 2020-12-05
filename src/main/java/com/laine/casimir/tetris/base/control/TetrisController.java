@@ -98,7 +98,7 @@ public final class TetrisController {
             return;
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
-        if (fallingTetromino == null || fallingTetromino.isTakenFromHoldBox()) {
+        if (fallingTetromino == null || fallingTetromino.isHoldable()) {
             return;
         }
         final Tetromino heldTetromino = tetrisGame.getHoldBox().setTetromino(fallingTetromino.getTetromino());
@@ -108,7 +108,7 @@ public final class TetrisController {
         }
         final FallingTetromino newFallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (newFallingTetromino != null) {
-            newFallingTetromino.setTakenFromHoldBox(true);
+            newFallingTetromino.setHoldable(true);
         }
     }
 

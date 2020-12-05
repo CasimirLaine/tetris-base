@@ -128,6 +128,7 @@ public class Playfield {
     public void setFallingTetromino(Tetromino fallingTetromino) {
         if (fallingTetromino != null) {
             this.fallingTetromino = new FallingTetromino(fallingTetromino);
+            move((int) (0.5F * Playfield.WIDTH - Math.ceil(fallingTetromino.getDimension() * 0.5F)), -fallingTetromino.getDimension() + 1);
         } else {
             this.fallingTetromino = null;
         }

@@ -1,6 +1,6 @@
 package com.laine.casimir.tetris.base.model;
 
-public class Position {
+public final class Position {
 
     private int x;
     private int y;

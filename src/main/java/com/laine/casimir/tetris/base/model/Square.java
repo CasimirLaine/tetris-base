@@ -1,6 +1,6 @@
 package com.laine.casimir.tetris.base.model;
 
-public class Square {
+public final class Square {
 
     private final Position position = new Position();
 

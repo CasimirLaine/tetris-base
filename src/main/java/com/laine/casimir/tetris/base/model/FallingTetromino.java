@@ -2,17 +2,16 @@ package com.laine.casimir.tetris.base.model;
 
 import java.util.List;
 
-public class FallingTetromino {
+public final class FallingTetromino {
 
     private final Tetromino tetromino;
 
     private final Position position = new Position();
 
-    private boolean takenFromHoldBox;
+    private boolean holdable;
 
     FallingTetromino(Tetromino tetromino) {
         this.tetromino = tetromino;
-        move((int) (0.5F * Playfield.WIDTH - Math.ceil(tetromino.getDimension() * 0.5F)), -tetromino.getDimension() + 1);
     }
 
     void move(int moveX, int moveY) {
@@ -20,12 +19,12 @@ public class FallingTetromino {
         position.setY(position.getY() + moveY);
     }
 
-    public boolean isTakenFromHoldBox() {
-        return takenFromHoldBox;
+    public boolean isHoldable() {
+        return holdable;
     }
 
-    public void setTakenFromHoldBox(boolean takenFromHoldBox) {
-        this.takenFromHoldBox = takenFromHoldBox;
+    public void setHoldable(boolean holdable) {
+        this.holdable = holdable;
     }
 
     public Tetromino getTetromino() {

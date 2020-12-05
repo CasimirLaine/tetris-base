@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class TetrominoBag {
+final class TetrominoBag {
 
     private final List<Tetromino> tetrominos = new ArrayList<>();
 
