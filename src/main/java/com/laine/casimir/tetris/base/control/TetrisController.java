@@ -11,6 +11,8 @@ public final class TetrisController {
 
     private final TetrisGame tetrisGame;
 
+    private long lastDrop;
+
     public TetrisController(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
         this.tetrisManager = new TetrisManager(tetrisGame);
@@ -19,6 +21,13 @@ public final class TetrisController {
     public void start() {
         tetrisGame.getHoldBox().setTetromino(null);
         tetrisGame.setPaused(false);
+    }
+
+    public void update() {
+        if (!tetrisGame.isGameOver() && System.currentTimeMillis() - lastDrop >= tetrisGame.getDropInterval()) {
+            drop();
+            lastDrop = System.currentTimeMillis();
+        }
     }
 
     public void drop() {
