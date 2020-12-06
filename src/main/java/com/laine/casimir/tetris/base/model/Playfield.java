@@ -138,7 +138,23 @@ public class Playfield {
     }
 
     public List<Square> getLandedSquares() {
-        return landedSquares;
+        return new ArrayList<>(landedSquares);
+    }
+
+    public List<Square> getFallingSquares() {
+        final List<Square> squares = new ArrayList<>();
+        final FallingTetromino fallingTetromino = getFallingTetromino();
+        if (fallingTetromino != null) {
+            final List<Square> squareList = fallingTetromino.getSquares();
+            for (int index = 0; index < squareList.size(); index++) {
+                final Square square = squareList.get(index);
+                final Position position = square.getPosition();
+                position.setX(position.getX() + fallingTetromino.getPosition().getX());
+                position.setY(position.getY() + fallingTetromino.getPosition().getY());
+            }
+            squares.addAll(squareList);
+        }
+        return squares;
     }
 
     public boolean isPieceLockedOutOfBounds() {
