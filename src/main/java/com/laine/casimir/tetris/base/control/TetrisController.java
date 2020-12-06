@@ -12,13 +12,18 @@ public final class TetrisController {
 
     private long lastDrop;
 
+    private boolean started;
+
     public TetrisController() {
         this.tetrisGame = new TetrisGame();
         this.tetrisManager = new TetrisManager(tetrisGame);
     }
 
     public void start() {
-        tetrisGame.getHoldBox().setTetromino(null);
+        if (started) {
+            return;
+        }
+        started = true;
         tetrisGame.setPaused(false);
     }
 
@@ -93,7 +98,7 @@ public final class TetrisController {
             return;
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
-        if (fallingTetromino == null || fallingTetromino.isHoldable()) {
+        if (fallingTetromino == null || fallingTetromino.isUnholdable()) {
             return;
         }
         final Tetromino heldTetromino = tetrisGame.getHoldBox().setTetromino(fallingTetromino.getTetromino());
@@ -103,7 +108,7 @@ public final class TetrisController {
         }
         final FallingTetromino newFallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (newFallingTetromino != null) {
-            newFallingTetromino.setHoldable(true);
+            newFallingTetromino.setUnholdable(true);
         }
     }
 

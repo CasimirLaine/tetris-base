@@ -8,7 +8,7 @@ public final class FallingTetromino {
 
     private final Position position = new Position();
 
-    private boolean holdable;
+    private boolean unholdable;
 
     FallingTetromino(Tetromino tetromino) {
         this.tetromino = tetromino;
@@ -19,12 +19,12 @@ public final class FallingTetromino {
         position.setY(position.getY() + moveY);
     }
 
-    public boolean isHoldable() {
-        return holdable;
+    public boolean isUnholdable() {
+        return unholdable;
     }
 
-    public void setHoldable(boolean holdable) {
-        this.holdable = holdable;
+    public void setUnholdable(boolean unholdable) {
+        this.unholdable = unholdable;
     }
 
     public Tetromino getTetromino() {
