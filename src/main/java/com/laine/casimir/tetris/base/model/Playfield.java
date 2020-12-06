@@ -138,7 +138,7 @@ public class Playfield {
     }
 
     public List<Square> getLandedSquares() {
-        return landedSquares;
+        return new ArrayList<>(landedSquares);
     }
 
     public boolean isPieceLockedOutOfBounds() {

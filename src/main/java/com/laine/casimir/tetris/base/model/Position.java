@@ -38,6 +38,11 @@ public final class Position {
         this.y = y;
     }
 
+    public void add(int x, int y) {
+        this.x += x;
+        this.y += y;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj != null && obj.getClass() == getClass() && ((Position) obj).x == x && ((Position) obj).y == y;

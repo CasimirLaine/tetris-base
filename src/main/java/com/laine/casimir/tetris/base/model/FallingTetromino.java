@@ -32,7 +32,12 @@ public final class FallingTetromino {
     }
 
     public List<Square> getSquares() {
-        return tetromino.getSquares();
+        final List<Square> squareList = tetromino.getSquares();
+        for (int index = 0; index < squareList.size(); index++) {
+            final Square square = squareList.get(index);
+            square.getPosition().add(position.getX(), position.getY());
+        }
+        return squareList;
     }
 
     public Position getPosition() {

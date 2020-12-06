@@ -1,9 +1,9 @@
 package com.laine.casimir.tetris.base.control;
 
-import com.laine.casimir.tetris.base.model.FallingTetromino;
-import com.laine.casimir.tetris.base.model.Playfield;
-import com.laine.casimir.tetris.base.model.TetrisGame;
-import com.laine.casimir.tetris.base.model.Tetromino;
+import com.laine.casimir.tetris.base.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class TetrisController {
 
@@ -120,8 +120,14 @@ public final class TetrisController {
         return tetrisGame.isPaused();
     }
 
-    public Playfield getPlayfield() {
-        return tetrisGame.getPlayfield();
+    public List<Square> getAllSquares() {
+        final List<Square> squareList = new ArrayList<>();
+        squareList.addAll(tetrisGame.getPlayfield().getLandedSquares());
+        final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
+        if (fallingTetromino != null) {
+            squareList.addAll(fallingTetromino.getSquares());
+        }
+        return squareList;
     }
 
     public Tetromino getHeldTetromino() {
