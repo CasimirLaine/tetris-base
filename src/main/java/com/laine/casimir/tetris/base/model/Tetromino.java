@@ -1,8 +1,5 @@
 package com.laine.casimir.tetris.base.model;
 
-import com.laine.casimir.tetris.base.model.Position;
-import com.laine.casimir.tetris.base.model.Square;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +30,13 @@ public class Tetromino {
     }
 
     public void rotateClockwise() {
-        rotation--;
-        rotation %= ROTATION_COUNT;
+        rotation++;
+        rotation = Math.abs(rotation + ROTATION_COUNT) % ROTATION_COUNT;
     }
 
     public void rotateCounterclockwise() {
-        rotation++;
-        rotation %= ROTATION_COUNT;
+        rotation--;
+        rotation = Math.abs(rotation + ROTATION_COUNT) % ROTATION_COUNT;
     }
 
     public List<Position> getSquarePositions() {
@@ -76,7 +73,7 @@ public class Tetromino {
     }
 
     private int getRotatedIndex(int x, int y) {
-        switch (Math.abs(ROTATION_COUNT - rotation) % ROTATION_COUNT) {
+        switch (Math.abs(ROTATION_COUNT + rotation) % ROTATION_COUNT) {
             case ROTATION_0:
                 return y * getDimension() + x;
             case ROTATION_90:
