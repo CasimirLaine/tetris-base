@@ -3,7 +3,7 @@ package com.laine.casimir.tetris.base.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tetromino {
+public final class Tetromino {
 
     private static final int ROTATION_COUNT = 4;
     private static final int ROTATION_0 = 0;
@@ -14,14 +14,14 @@ public class Tetromino {
     private final boolean[] data;
     private final String colorHex;
 
-    protected int rotation;
+    private int rotation;
 
     public Tetromino(String colorHex, int dimension) {
         this.colorHex = colorHex;
         this.data = new boolean[dimension * dimension];
     }
 
-    public boolean hasSquare(int x, int y) {
+    boolean hasSquare(int x, int y) {
         return data[getRotatedIndex(x, y)];
     }
 
@@ -68,7 +68,7 @@ public class Tetromino {
         return colorHex;
     }
 
-    public final int getDimension() {
+    public int getDimension() {
         return (int) Math.sqrt(data.length);
     }
 
@@ -82,7 +82,8 @@ public class Tetromino {
                 return (getDimension() * getDimension() - 1) - y * getDimension() - x;
             case ROTATION_270:
                 return (getDimension() - 1) - y + getDimension() * x;
+            default:
+                return 0;
         }
-        return 0;
     }
 }

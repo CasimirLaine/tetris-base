@@ -13,8 +13,8 @@ public final class TetrisController {
 
     private long lastDrop;
 
-    public TetrisController(TetrisGame tetrisGame) {
-        this.tetrisGame = tetrisGame;
+    public TetrisController() {
+        this.tetrisGame = new TetrisGame();
         this.tetrisManager = new TetrisManager(tetrisGame);
     }
 
@@ -25,19 +25,15 @@ public final class TetrisController {
 
     public void update() {
         if (!tetrisGame.isGameOver() && System.currentTimeMillis() - lastDrop >= tetrisGame.getDropInterval()) {
-            drop();
+            if (!tetrisGame.isRunning()) {
+                return;
+            }
+            if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
+                tetrisManager.nextTetromino();
+            } else {
+                tetrisGame.getPlayfield().fall();
+            }
             lastDrop = System.currentTimeMillis();
-        }
-    }
-
-    public void drop() {
-        if (!tetrisGame.isRunning()) {
-            return;
-        }
-        if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
-            tetrisManager.nextTetromino();
-        } else {
-            tetrisGame.getPlayfield().fall();
         }
     }
 
@@ -118,5 +114,37 @@ public final class TetrisController {
 
     public void resume() {
         tetrisGame.setPaused(false);
+    }
+
+    public boolean isPaused() {
+        return tetrisGame.isPaused();
+    }
+
+    public Playfield getPlayfield() {
+        return tetrisGame.getPlayfield();
+    }
+
+    public Tetromino getHeldTetromino() {
+        return tetrisGame.getHoldBox().getTetromino();
+    }
+
+    public Tetromino[] getPreviewTetrominos(int count) {
+        final Tetromino[] previewTetrominos = new Tetromino[count];
+        for (int index = 0; index < count; index++) {
+            previewTetrominos[index] = tetrisGame.getTetrominoQueue().getPreview(index);
+        }
+        return previewTetrominos;
+    }
+
+    public int getScore() {
+        return 0;
+    }
+
+    public int getLevel() {
+        return 1;
+    }
+
+    public int getClearedRows() {
+        return tetrisGame.getPlayfield().getClearedRows();
     }
 }
