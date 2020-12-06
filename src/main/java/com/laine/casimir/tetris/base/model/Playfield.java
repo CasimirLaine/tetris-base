@@ -13,6 +13,7 @@ public class Playfield {
 
     private FallingTetromino fallingTetromino;
 
+    private int score;
     private int clearedRows;
 
     private boolean pieceLockedOutOfBounds;
@@ -46,7 +47,14 @@ public class Playfield {
         clearedRows++;
     }
 
-    public void fall() {
+    public void softDrop() {
+        score += gravity() ? 1 : 0;
+    }
+
+    public boolean gravity() {
+        if (fallingTetromino == null) {
+            return false;
+        }
         final boolean moved = move(0, 1);
         if (!moved) {
             final List<Square> squares = fallingTetromino.getSquares();
@@ -65,11 +73,12 @@ public class Playfield {
             }
             fallingTetromino = null;
         }
+        return moved;
     }
 
-    public void drop() {
+    public void hardDrop() {
         while (fallingTetromino != null) {
-            fall();
+            softDrop();
         }
     }
 
@@ -83,7 +92,7 @@ public class Playfield {
 
     private boolean move(int moveX, int moveY) {
         if (fallingTetromino == null) {
-            return true;
+            return false;
         }
         pieceLockedOutOfBounds = false;
         final List<Square> squares = fallingTetromino.getSquares();
@@ -134,7 +143,7 @@ public class Playfield {
         } else {
             this.fallingTetromino = null;
         }
-        while (!move(0, 0)) {
+        while (this.fallingTetromino != null && !move(0, 0)) {
             this.fallingTetromino.move(0, -1);
         }
     }
@@ -161,6 +170,10 @@ public class Playfield {
 
     public boolean isPieceLockedOutOfBounds() {
         return pieceLockedOutOfBounds;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public int getClearedRows() {
