@@ -3,7 +3,7 @@ package com.laine.casimir.tetris.base.control;
 import com.laine.casimir.tetris.base.model.TetrisGame;
 import com.laine.casimir.tetris.base.model.Tetromino;
 
-final class TetrisManager {
+public final class TetrisManager {
 
     private final TetrisGame tetrisGame;
 

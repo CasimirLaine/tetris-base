@@ -1,13 +1,11 @@
 package com.laine.casimir.tetris.base.model;
 
+import com.laine.casimir.tetris.base.api.TetrisConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Playfield {
-
-    public static final int WIDTH = 10;
-    public static final int HEIGHT = 40;
-    public static final int VISIBLE_HEIGHT = 20;
 
     private final List<Square> landedSquares = new ArrayList<>();
 
@@ -22,7 +20,7 @@ public class Playfield {
     }
 
     private boolean checkRow(int y) {
-        for (int x = 0; x < WIDTH; x++) {
+        for (int x = 0; x < TetrisConstants.WIDTH; x++) {
             if (!collides(x, y)) {
                 return false;
             }
@@ -122,7 +120,7 @@ public class Playfield {
     }
 
     private boolean collides(int x, int y) {
-        if (y < VISIBLE_HEIGHT - HEIGHT || y >= VISIBLE_HEIGHT || x < 0 || x >= WIDTH) {
+        if (y < TetrisConstants.VISIBLE_HEIGHT - TetrisConstants.HEIGHT || y >= TetrisConstants.VISIBLE_HEIGHT || x < 0 || x >= TetrisConstants.WIDTH) {
             return true;
         }
         for (int index = 0; index < landedSquares.size(); index++) {
@@ -141,7 +139,7 @@ public class Playfield {
     public void setFallingTetromino(Tetromino fallingTetromino) {
         if (fallingTetromino != null) {
             this.fallingTetromino = new FallingTetromino(fallingTetromino);
-            move((int) (0.5F * Playfield.WIDTH - Math.ceil(fallingTetromino.getDimension() * 0.5F)), -fallingTetromino.getDimension() + 1);
+            move((int) (0.5F * TetrisConstants.WIDTH - Math.ceil(fallingTetromino.getDimension() * 0.5F)), -fallingTetromino.getDimension() + 1);
         } else {
             this.fallingTetromino = null;
         }

@@ -1,5 +1,6 @@
-package com.laine.casimir.tetris.base.control;
+package com.laine.casimir.tetris.base.api;
 
+import com.laine.casimir.tetris.base.control.TetrisManager;
 import com.laine.casimir.tetris.base.model.*;
 
 import java.util.List;
