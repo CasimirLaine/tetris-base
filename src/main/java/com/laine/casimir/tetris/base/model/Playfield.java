@@ -77,9 +77,11 @@ public class Playfield {
     }
 
     public void hardDrop() {
+        int hardDropScore = 0;
         while (fallingTetromino != null) {
-            softDrop();
+            hardDropScore += gravity() ? 2 : 0;
         }
+        score += hardDropScore;
     }
 
     public void shiftLeft() {
