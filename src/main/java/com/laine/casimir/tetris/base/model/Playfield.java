@@ -68,7 +68,9 @@ public class Playfield {
     }
 
     public void drop() {
-
+        while (fallingTetromino != null) {
+            fall();
+        }
     }
 
     public void shiftLeft() {
