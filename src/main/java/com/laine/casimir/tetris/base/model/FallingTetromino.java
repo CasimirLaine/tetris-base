@@ -22,14 +22,6 @@ public final class FallingTetromino {
         position.setY(position.getY() + moveY);
     }
 
-    public void rotateClockwise() {
-        tetromino.rotateClockwise();
-    }
-
-    public void rotateCounterclockwise() {
-        tetromino.rotateCounterclockwise();
-    }
-
     public boolean isUnholdable() {
         return unholdable;
     }

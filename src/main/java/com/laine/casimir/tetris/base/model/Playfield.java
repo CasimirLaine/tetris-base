@@ -108,7 +108,7 @@ public final class Playfield {
         move(1, 0);
     }
 
-    private boolean move(int moveX, int moveY) {
+    public boolean move(int moveX, int moveY) {
         if (fallingTetromino == null) {
             return false;
         }

@@ -68,20 +68,14 @@ public final class TetrisController {
         if (!tetrisGame.isRunning()) {
             return;
         }
-        final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
-        if (fallingTetromino != null) {
-            fallingTetromino.rotateClockwise();
-        }
+        tetrisManager.rotateClockwise();
     }
 
     public void rotateCounterclockwise() {
         if (!tetrisGame.isRunning()) {
             return;
         }
-        final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
-        if (fallingTetromino != null) {
-            fallingTetromino.rotateCounterclockwise();
-        }
+        tetrisManager.rotateCounterclockwise();
     }
 
     public void hardDrop() {

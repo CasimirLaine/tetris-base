@@ -32,12 +32,12 @@ public final class Tetromino implements BaseTetromino {
         data[getRotatedIndex(x, y)] = enabled;
     }
 
-    void rotateClockwise() {
+    public void rotateClockwise() {
         rotation++;
         rotation = Math.abs(rotation + ROTATION_COUNT) % ROTATION_COUNT;
     }
 
-    void rotateCounterclockwise() {
+    public void rotateCounterclockwise() {
         rotation--;
         rotation = Math.abs(rotation + ROTATION_COUNT) % ROTATION_COUNT;
     }
