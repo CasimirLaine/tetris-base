@@ -134,6 +134,10 @@ public final class TetrisController {
         return tetrisGame.isPaused();
     }
 
+    public boolean isGameOver() {
+        return tetrisGame.isGameOver();
+    }
+
     public List<TetrisCell> getAllSquares() {
         final List<TetrisCell> squareList = new ArrayList<>();
         squareList.addAll(tetrisGame.getPlayfield().getLandedSquares());
