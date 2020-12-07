@@ -1,9 +1,12 @@
 package com.laine.casimir.tetris.base.model;
 
+import com.laine.casimir.tetris.base.api.model.BaseTetromino;
+import com.laine.casimir.tetris.base.api.model.TetrisCell;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Tetromino {
+public final class Tetromino implements BaseTetromino {
 
     private static final int ROTATION_COUNT = 4;
     private static final int ROTATION_0 = 0;
@@ -21,7 +24,7 @@ public final class Tetromino {
         this.data = new boolean[dimension * dimension];
     }
 
-    boolean hasSquare(int x, int y) {
+    private boolean hasSquare(int x, int y) {
         return data[getRotatedIndex(x, y)];
     }
 
@@ -29,45 +32,42 @@ public final class Tetromino {
         data[getRotatedIndex(x, y)] = enabled;
     }
 
-    public void rotateClockwise() {
+    void rotateClockwise() {
         rotation++;
         rotation = Math.abs(rotation + ROTATION_COUNT) % ROTATION_COUNT;
     }
 
-    public void rotateCounterclockwise() {
+    void rotateCounterclockwise() {
         rotation--;
         rotation = Math.abs(rotation + ROTATION_COUNT) % ROTATION_COUNT;
     }
 
-    public List<Position> getSquarePositions() {
-        final List<Position> positions = new ArrayList<>();
+    public void resetRotation() {
+        this.rotation = ROTATION_0;
+    }
+
+    @Override
+    public List<TetrisCell> getTetrisCells() {
+        final List<TetrisCell> tetrisCells = new ArrayList<>(getSquares());
+        return tetrisCells;
+    }
+
+    List<Square> getSquares() {
+        final List<Square> squares = new ArrayList<>();
         for (int x = 0; x < getDimension(); x++) {
             for (int y = 0; y < getDimension(); y++) {
                 final boolean hasSquare = hasSquare(x, y);
                 if (hasSquare) {
-                    final Position position = new Position(x, y);
-                    positions.add(position);
+                    final Square square = new Square(x, y);
+                    square.setColorHex(colorHex);
+                    squares.add(square);
                 }
             }
-        }
-        return positions;
-    }
-
-    public List<Square> getSquares() {
-        final List<Square> squares = new ArrayList<>();
-        final List<Position> positions = getSquarePositions();
-        for (final Position position : positions) {
-            final Square square = new Square(position);
-            square.setColorHex(getColorHex());
-            squares.add(square);
         }
         return squares;
     }
 
-    public String getColorHex() {
-        return colorHex;
-    }
-
+    @Override
     public int getDimension() {
         return (int) Math.sqrt(data.length);
     }

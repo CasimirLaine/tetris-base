@@ -14,10 +14,6 @@ public final class Position {
         this.y = y;
     }
 
-    public boolean collides(Position position) {
-        return collides(position.getX(), position.getY());
-    }
-
     public boolean collides(int x, int y) {
         return this.x == x && this.y == y;
     }

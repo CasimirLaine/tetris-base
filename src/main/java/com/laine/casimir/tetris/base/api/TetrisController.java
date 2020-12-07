@@ -1,8 +1,14 @@
 package com.laine.casimir.tetris.base.api;
 
+import com.laine.casimir.tetris.base.api.model.BaseTetromino;
+import com.laine.casimir.tetris.base.api.model.TetrisCell;
 import com.laine.casimir.tetris.base.control.TetrisManager;
-import com.laine.casimir.tetris.base.model.*;
+import com.laine.casimir.tetris.base.model.FallingTetromino;
+import com.laine.casimir.tetris.base.model.Playfield;
+import com.laine.casimir.tetris.base.model.TetrisGame;
+import com.laine.casimir.tetris.base.model.Tetromino;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class TetrisController {
@@ -64,7 +70,7 @@ public final class TetrisController {
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino != null) {
-            fallingTetromino.getTetromino().rotateClockwise();
+            fallingTetromino.rotateClockwise();
         }
     }
 
@@ -74,7 +80,7 @@ public final class TetrisController {
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino != null) {
-            fallingTetromino.getTetromino().rotateCounterclockwise();
+            fallingTetromino.rotateCounterclockwise();
         }
     }
 
@@ -103,6 +109,9 @@ public final class TetrisController {
             return;
         }
         final Tetromino heldTetromino = tetrisGame.getHoldBox().setTetromino(fallingTetromino.getTetromino());
+        if (heldTetromino != null) {
+            heldTetromino.resetRotation();
+        }
         tetrisGame.getPlayfield().setFallingTetromino(heldTetromino);
         if (heldTetromino == null) {
             tetrisManager.nextTetromino();
@@ -125,17 +134,21 @@ public final class TetrisController {
         return tetrisGame.isPaused();
     }
 
-    public List<Square> getAllSquares() {
-        final List<Square> squareList = tetrisGame.getPlayfield().getLandedSquares();
-        squareList.addAll(tetrisGame.getPlayfield().getFallingSquares());
+    public List<TetrisCell> getAllSquares() {
+        final List<TetrisCell> squareList = new ArrayList<>();
+        squareList.addAll(tetrisGame.getPlayfield().getLandedSquares());
+        final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
+        if (fallingTetromino != null) {
+            squareList.addAll(fallingTetromino.getTetrisCellsWithPosition());
+        }
         return squareList;
     }
 
-    public Tetromino getHeldTetromino() {
+    public BaseTetromino getHeldTetromino() {
         return tetrisGame.getHoldBox().getTetromino();
     }
 
-    public Tetromino[] getPreviewTetrominos(int count) {
+    public BaseTetromino[] getPreviewTetrominos(int count) {
         final Tetromino[] previewTetrominos = new Tetromino[count];
         for (int index = 0; index < count; index++) {
             previewTetrominos[index] = tetrisGame.getTetrominoQueue().getPreview(index);

@@ -1,14 +1,15 @@
 package com.laine.casimir.tetris.base.model;
 
+import com.laine.casimir.tetris.base.api.TetrisConstants;
 import com.laine.casimir.tetris.base.tool.HoldBox;
 import com.laine.casimir.tetris.base.tool.TetrominoQueue;
 
-public class TetrisGame {
+public final class TetrisGame {
 
-    private static final float START_INTERVAL = 1_000;
-    private static final float MIN_INTERVAL = 25;
+    private static final float DROP_INTERVAL_START = 1_000;
+    private static final float DROP_INTERVAL_MIN = 25;
 
-    private final Playfield playfield = new Playfield();
+    private final Playfield playfield = new Playfield(TetrisConstants.WIDTH, TetrisConstants.HEIGHT, TetrisConstants.VISIBLE_HEIGHT);
     private final HoldBox holdBox = new HoldBox();
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
 
@@ -41,7 +42,7 @@ public class TetrisGame {
     }
 
     public int getDropInterval() {
-        return (int) Math.max(START_INTERVAL / speed, MIN_INTERVAL);
+        return (int) Math.max(DROP_INTERVAL_START / speed, DROP_INTERVAL_MIN);
     }
 
     public boolean isGameOver() {
