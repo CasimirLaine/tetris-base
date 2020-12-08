@@ -1,6 +1,7 @@
 package com.laine.casimir.tetris.base.control;
 
 import com.laine.casimir.tetris.base.model.FallingTetromino;
+import com.laine.casimir.tetris.base.model.Position;
 import com.laine.casimir.tetris.base.model.TetrisGame;
 import com.laine.casimir.tetris.base.model.Tetromino;
 
@@ -12,13 +13,46 @@ public final class TetrisManager {
         this.tetrisGame = tetrisGame;
     }
 
+    public void softDrop() {
+        tetrisGame.getTetrisScore().addScore(gravity() ? 1 : 0);
+    }
+
+    public void hardDrop() {
+        int hardDropScore = 0;
+        while (tetrisGame.getPlayfield().getFallingTetromino() != null) {
+            hardDropScore += gravity() ? 2 : 0;
+        }
+        tetrisGame.getTetrisScore().addScore(hardDropScore);
+    }
+
+    public boolean gravity() {
+        if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
+            return false;
+        }
+        final boolean moved = tetrisGame.getPlayfield().move(0, 1);
+        if (!moved) {
+            atomizeTetromino();
+        }
+        return moved;
+    }
+
     public void rotateClockwise() {
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         final boolean canMove = tetrisGame.getPlayfield().move(0, 0);
         if (fallingTetromino != null && canMove) {
-            fallingTetromino.getTetromino().rotateClockwise();
-            if (!tetrisGame.getPlayfield().move(0, 0)) {
-                fallingTetromino.getTetromino().rotateCounterclockwise();
+            final int x = fallingTetromino.getPosition().getX();
+            final int y = fallingTetromino.getPosition().getY();
+            for (int index = 0; index < fallingTetromino.getTetromino().getKickIndexCount(); index++) {
+                fallingTetromino.move(fallingTetromino.getTetromino().getKickX(index, true),
+                        fallingTetromino.getTetromino().getKickY(index, true));
+                fallingTetromino.getTetromino().rotateClockwise();
+                if (!tetrisGame.getPlayfield().move(0, 0)) {
+                    fallingTetromino.getTetromino().rotateCounterclockwise();
+                    fallingTetromino.getPosition().setX(x);
+                    fallingTetromino.getPosition().setY(y);
+                } else {
+                    break;
+                }
             }
         }
     }
@@ -27,11 +61,34 @@ public final class TetrisManager {
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         final boolean canMove = tetrisGame.getPlayfield().move(0, 0);
         if (fallingTetromino != null && canMove) {
-            fallingTetromino.getTetromino().rotateCounterclockwise();
-            if (!tetrisGame.getPlayfield().move(0, 0)) {
-                fallingTetromino.getTetromino().rotateClockwise();
+            final int x = fallingTetromino.getPosition().getX();
+            final int y = fallingTetromino.getPosition().getY();
+            for (int index = 0; index < fallingTetromino.getTetromino().getKickIndexCount(); index++) {
+                fallingTetromino.move(fallingTetromino.getTetromino().getKickX(index, false),
+                        fallingTetromino.getTetromino().getKickY(index, false));
+                fallingTetromino.getTetromino().rotateCounterclockwise();
+                if (!tetrisGame.getPlayfield().move(0, 0)) {
+                    fallingTetromino.getTetromino().rotateClockwise();
+                    fallingTetromino.getPosition().setX(x);
+                    fallingTetromino.getPosition().setY(y);
+                } else {
+                    break;
+                }
             }
         }
+    }
+
+    private void atomizeTetromino() {
+        final Position fallingTetrominoPosition = tetrisGame.getPlayfield().getFallingTetromino().getPosition();
+        tetrisGame.getPlayfield().getLandedSquares().addAll(tetrisGame.getPlayfield().getFallingTetromino().getTetrisCellsWithPosition());
+        for (int y = tetrisGame.getPlayfield().getVisibleHeight() - 1; y >= fallingTetrominoPosition.getY(); y--) {
+            final boolean shouldClear = tetrisGame.getPlayfield().isFullRow(y);
+            if (shouldClear) {
+                tetrisGame.getPlayfield().clearRow(y);
+                tetrisGame.getTetrisScore().addLineCleared();
+            }
+        }
+        tetrisGame.getPlayfield().setFallingTetromino(null);
     }
 
     public void nextTetromino() {

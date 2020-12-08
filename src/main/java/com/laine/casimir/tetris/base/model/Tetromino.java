@@ -9,6 +9,8 @@ import java.util.List;
 public final class Tetromino implements BaseTetromino {
 
     private static final int ROTATION_COUNT = 4;
+    private static final int WALL_KICK_COUNT = 2 * ROTATION_COUNT;
+
     private static final int ROTATION_0 = 0;
     private static final int ROTATION_90 = 1;
     private static final int ROTATION_180 = 2;
@@ -16,12 +18,14 @@ public final class Tetromino implements BaseTetromino {
 
     private final boolean[] data;
     private final String colorHex;
+    private final int[] kickData;
 
     private int rotation;
 
-    public Tetromino(String colorHex, int dimension) {
+    public Tetromino(String colorHex, int dimension, int[] kickData) {
         this.colorHex = colorHex;
         this.data = new boolean[dimension * dimension];
+        this.kickData = kickData;
     }
 
     private boolean hasSquare(int x, int y) {
@@ -85,5 +89,21 @@ public final class Tetromino implements BaseTetromino {
             default:
                 return 0;
         }
+    }
+
+    public int getKickIndexCount() {
+        return kickData.length / (WALL_KICK_COUNT * 2);
+    }
+
+    public int getKickX(int kickIndex, boolean clockwise) {
+        return kickData[getKickDataIndex(kickIndex, clockwise)];
+    }
+
+    public int getKickY(int kickIndex, boolean clockwise) {
+        return -kickData[getKickDataIndex(kickIndex, clockwise) + 1];
+    }
+
+    private int getKickDataIndex(int kickIndex, boolean clockwise) {
+        return (kickIndex * WALL_KICK_COUNT * 2 + (rotation * ROTATION_COUNT + (clockwise ? 0 : 2)));
     }
 }

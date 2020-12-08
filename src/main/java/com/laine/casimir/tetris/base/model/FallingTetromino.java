@@ -17,7 +17,7 @@ public final class FallingTetromino {
         this.tetromino = tetromino;
     }
 
-    void move(int moveX, int moveY) {
+    public void move(int moveX, int moveY) {
         position.setX(position.getX() + moveX);
         position.setY(position.getY() + moveY);
     }

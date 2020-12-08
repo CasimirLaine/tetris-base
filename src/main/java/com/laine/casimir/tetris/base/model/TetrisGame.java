@@ -12,6 +12,7 @@ public final class TetrisGame {
     private final Playfield playfield = new Playfield(TetrisConstants.WIDTH, TetrisConstants.HEIGHT, TetrisConstants.VISIBLE_HEIGHT);
     private final HoldBox holdBox = new HoldBox();
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
+    private final TetrisScore tetrisScore = new TetrisScore();
 
     private float speed = 1F;
     private boolean gameOver;
@@ -31,6 +32,10 @@ public final class TetrisGame {
 
     public TetrominoQueue getTetrominoQueue() {
         return tetrominoQueue;
+    }
+
+    public TetrisScore getTetrisScore() {
+        return tetrisScore;
     }
 
     public boolean isPaused() {

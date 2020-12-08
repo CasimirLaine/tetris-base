@@ -16,9 +16,6 @@ public final class Playfield {
 
     private FallingTetromino fallingTetromino;
 
-    private int score;
-    private int clearedRows;
-
     private boolean pieceLockedOutOfBounds;
 
     Playfield(int width, int height, int visibleHeight) {
@@ -27,7 +24,7 @@ public final class Playfield {
         this.visibleHeight = visibleHeight;
     }
 
-    private boolean collides(int x, int y) {
+    public boolean collides(int x, int y) {
         if (y < visibleHeight - height || y >= visibleHeight || x < 0 || x >= width) {
             return true;
         }
@@ -40,7 +37,7 @@ public final class Playfield {
         return false;
     }
 
-    private boolean isFullRow(int y) {
+    public boolean isFullRow(int y) {
         for (int x = 0; x < width; x++) {
             if (!collides(x, y)) {
                 return false;
@@ -49,7 +46,7 @@ public final class Playfield {
         return true;
     }
 
-    private void clearRow(int y) {
+    public void clearRow(int y) {
         if (y < visibleHeight - height || y >= visibleHeight) {
             return;
         }
@@ -66,38 +63,6 @@ public final class Playfield {
                 square.getPosition().setY(square.getPosition().getY() + 1);
             }
         }
-        clearedRows++;
-    }
-
-    public void softDrop() {
-        score += gravity() ? 1 : 0;
-    }
-
-    public void hardDrop() {
-        int hardDropScore = 0;
-        while (fallingTetromino != null) {
-            hardDropScore += gravity() ? 2 : 0;
-        }
-        score += hardDropScore;
-    }
-
-    public boolean gravity() {
-        if (fallingTetromino == null) {
-            return false;
-        }
-        final boolean moved = move(0, 1);
-        if (!moved) {
-            final Position fallingTetrominoPosition = fallingTetromino.getPosition();
-            landedSquares.addAll(fallingTetromino.getTetrisCellsWithPosition());
-            for (int y = visibleHeight - 1; y >= fallingTetrominoPosition.getY(); y--) {
-                final boolean shouldClear = isFullRow(y);
-                if (shouldClear) {
-                    clearRow(y);
-                }
-            }
-            fallingTetromino = null;
-        }
-        return moved;
     }
 
     public void shiftLeft() {
@@ -153,19 +118,15 @@ public final class Playfield {
         }
     }
 
+    public int getVisibleHeight() {
+        return visibleHeight;
+    }
+
     public List<Square> getLandedSquares() {
-        return new ArrayList<>(landedSquares);
+        return landedSquares;
     }
 
     public boolean isPieceLockedOutOfBounds() {
         return pieceLockedOutOfBounds;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int getClearedRows() {
-        return clearedRows;
     }
 }

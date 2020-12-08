@@ -42,7 +42,7 @@ public final class TetrisController {
             if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
                 tetrisManager.nextTetromino();
             } else {
-                tetrisGame.getPlayfield().gravity();
+                tetrisManager.gravity();
             }
             lastDrop = System.currentTimeMillis();
         }
@@ -82,16 +82,14 @@ public final class TetrisController {
         if (!tetrisGame.isRunning()) {
             return;
         }
-        final Playfield playfield = tetrisGame.getPlayfield();
-        playfield.hardDrop();
+        tetrisManager.hardDrop();
     }
 
     public void softDrop() {
         if (!tetrisGame.isRunning()) {
             return;
         }
-        final Playfield playfield = tetrisGame.getPlayfield();
-        playfield.softDrop();
+        tetrisManager.softDrop();
     }
 
     public void hold() {
@@ -155,14 +153,14 @@ public final class TetrisController {
     }
 
     public int getScore() {
-        return tetrisGame.getPlayfield().getScore();
+        return tetrisGame.getTetrisScore().getScore();
     }
 
     public int getLevel() {
-        return 1;
+        return tetrisGame.getTetrisScore().getLevel();
     }
 
     public int getClearedRows() {
-        return tetrisGame.getPlayfield().getClearedRows();
+        return tetrisGame.getTetrisScore().getLinesCleared();
     }
 }
