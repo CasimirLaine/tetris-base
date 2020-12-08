@@ -104,6 +104,8 @@ public final class Tetromino implements BaseTetromino {
     }
 
     private int getKickDataIndex(int kickIndex, boolean clockwise) {
-        return (kickIndex * WALL_KICK_COUNT * 2 + (rotation * ROTATION_COUNT + (clockwise ? 0 : 2)));
+        return (kickIndex * WALL_KICK_COUNT * 2
+                + (WALL_KICK_COUNT * 2 +
+                (rotation * 4 + (clockwise ? 0 : -2))) % (WALL_KICK_COUNT * 2));
     }
 }
