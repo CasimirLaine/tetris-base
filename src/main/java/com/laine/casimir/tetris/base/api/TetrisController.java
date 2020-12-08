@@ -68,14 +68,14 @@ public final class TetrisController {
         if (!tetrisGame.isRunning()) {
             return;
         }
-        tetrisManager.rotateClockwise();
+        tetrisManager.rotate(true);
     }
 
     public void rotateCounterclockwise() {
         if (!tetrisGame.isRunning()) {
             return;
         }
-        tetrisManager.rotateCounterclockwise();
+        tetrisManager.rotate(false);
     }
 
     public void hardDrop() {
