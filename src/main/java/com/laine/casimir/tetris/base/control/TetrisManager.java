@@ -68,13 +68,15 @@ public final class TetrisManager {
     private void atomizeTetromino() {
         final Position fallingTetrominoPosition = tetrisGame.getPlayfield().getFallingTetromino().getPosition();
         tetrisGame.getPlayfield().getLandedSquares().addAll(tetrisGame.getPlayfield().getFallingTetromino().getTetrisCellsWithPosition());
+        int linesCleared = 0;
         for (int y = tetrisGame.getPlayfield().getVisibleHeight() - 1; y >= fallingTetrominoPosition.getY(); y--) {
             final boolean shouldClear = tetrisGame.getPlayfield().isFullRow(y);
             if (shouldClear) {
                 tetrisGame.getPlayfield().clearRow(y);
-                tetrisGame.getTetrisScore().addLineCleared();
+                linesCleared++;
             }
         }
+        tetrisGame.getTetrisScore().addLinesCleared(linesCleared);
         tetrisGame.getPlayfield().setFallingTetromino(null);
     }
 
