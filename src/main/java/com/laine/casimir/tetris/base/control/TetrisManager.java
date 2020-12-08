@@ -77,6 +77,9 @@ public final class TetrisManager {
             }
         }
         tetrisGame.getTetrisScore().addLinesCleared(linesCleared);
+        if (linesCleared <= 0) {
+            tetrisGame.getTetrisScore().resetCombo();
+        }
         tetrisGame.getPlayfield().setFallingTetromino(null);
     }
 

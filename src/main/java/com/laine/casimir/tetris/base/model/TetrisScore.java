@@ -8,14 +8,28 @@ public class TetrisScore {
     private int level = 1;
     private int linesCleared;
 
+    private int combo;
+
+    private boolean wasDifficultClear;
+
     public void addScore(int score) {
         this.score += score;
     }
 
     public void addLinesCleared(int lines) {
+        if (lines <= 0) {
+            return;
+        }
         this.linesCleared += lines;
-        addScore(getScoreForLines(lines) * this.level);
+        addScore(getScoreForLines(lines) * this.level + 50 * combo * this.level);
         this.level = linesCleared / LINES_PER_LEVEL + 1;
+        combo++;
+        wasDifficultClear = lines == 4;
+    }
+
+    public void resetCombo() {
+        combo = 0;
+        wasDifficultClear = false;
     }
 
     public int getScore() {
@@ -40,7 +54,7 @@ public class TetrisScore {
             case 3:
                 return 500;
             case 4:
-                return 800;
+                return wasDifficultClear ? 1200 : 800;
         }
     }
 }
