@@ -17,13 +17,15 @@ public final class Tetromino implements BaseTetromino {
     private static final int ROTATION_180 = 2;
     private static final int ROTATION_270 = 3;
 
+    private final String name;
     private final boolean[] data;
     private final String colorHex;
     private final int[] kickData;
 
     private int rotation;
 
-    public Tetromino(String colorHex, int dimension, int[] kickData) {
+    public Tetromino(String name, String colorHex, int dimension, int[] kickData) {
+        this.name = name;
         this.colorHex = colorHex;
         this.data = new boolean[dimension * dimension];
         this.kickData = kickData;
@@ -107,5 +109,9 @@ public final class Tetromino implements BaseTetromino {
         return kickIndex * NUMBERS_PER_KICK
                 + (NUMBERS_PER_KICK +
                 rotation * 4 + (clockwise ? 0 : -2)) % NUMBERS_PER_KICK;
+    }
+
+    public String getName() {
+        return name;
     }
 }

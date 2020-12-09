@@ -37,7 +37,7 @@ public final class Playfield {
         return false;
     }
 
-    private boolean canMove(int x, int y) {
+    public boolean canMove(int x, int y) {
         if (fallingTetromino == null) {
             return false;
         }

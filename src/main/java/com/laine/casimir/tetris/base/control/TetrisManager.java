@@ -66,6 +66,7 @@ public final class TetrisManager {
     }
 
     private void atomizeTetromino() {
+        final boolean isTSpin = isTSpin();
         final Position fallingTetrominoPosition = tetrisGame.getPlayfield().getFallingTetromino().getPosition();
         tetrisGame.getPlayfield().getLandedSquares().addAll(tetrisGame.getPlayfield().getFallingTetromino().getTetrisCellsWithPosition());
         int linesCleared = 0;
@@ -77,10 +78,7 @@ public final class TetrisManager {
                 y++;
             }
         }
-        tetrisGame.getTetrisScore().addLinesCleared(linesCleared);
-        if (linesCleared <= 0) {
-            tetrisGame.getTetrisScore().resetCombo();
-        }
+        tetrisGame.getTetrisScore().processLines(linesCleared, isTSpin);
         tetrisGame.getPlayfield().setFallingTetromino(null);
     }
 
@@ -91,5 +89,14 @@ public final class TetrisManager {
         }
         final Tetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
         tetrisGame.getPlayfield().setFallingTetromino(nextTetromino);
+    }
+
+    private boolean isTSpin() {
+        final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
+        if (fallingTetromino == null) {
+            return false;
+        }
+        return "T".equals(fallingTetromino.getTetromino().getName()) && !tetrisGame.getPlayfield().canMove(-1, 0)
+                && !tetrisGame.getPlayfield().canMove(1, 0) && !tetrisGame.getPlayfield().canMove(0, -1);
     }
 }

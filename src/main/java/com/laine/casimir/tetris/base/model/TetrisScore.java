@@ -11,11 +11,22 @@ public final class TetrisScore {
 
     private boolean wasDifficultClear;
 
+    public void processLines(int lines, boolean isTSpin) {
+        addLinesCleared(lines);
+        if (isTSpin) {
+            addTSpin(lines);
+        }
+        wasDifficultClear = lines == 4 || (isTSpin && (lines > 0 || wasDifficultClear));
+        if (lines <= 0) {
+            resetCombo();
+        }
+    }
+
     public void addScore(int score) {
         this.score += score;
     }
 
-    public void addLinesCleared(int lines) {
+    private void addLinesCleared(int lines) {
         if (lines <= 0) {
             return;
         }
@@ -27,12 +38,14 @@ public final class TetrisScore {
             this.linesClearedInLevel = linesClearedInLevel - getLevelGoal();
         }
         combo++;
-        wasDifficultClear = lines == 4;
     }
 
-    public void resetCombo() {
+    private void addTSpin(int linesCleared) {
+        addScore(getTSpinScore(linesCleared));
+    }
+
+    private void resetCombo() {
         combo = 0;
-        wasDifficultClear = false;
     }
 
     public int getScore() {
@@ -72,6 +85,20 @@ public final class TetrisScore {
                 return 5;
             case 4:
                 return 8;
+        }
+    }
+
+    private int getTSpinScore(int lines) {
+        switch (lines) {
+            default:
+            case 0:
+                return 400;
+            case 1:
+                return (int) (800 * (wasDifficultClear ? 3F / 2F : 1));
+            case 2:
+                return (int) (1200 * (wasDifficultClear ? 3F / 2F : 1));
+            case 3:
+                return (int) (1600 * (wasDifficultClear ? 3F / 2F : 1));
         }
     }
 
