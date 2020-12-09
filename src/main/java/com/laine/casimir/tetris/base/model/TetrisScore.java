@@ -1,8 +1,6 @@
 package com.laine.casimir.tetris.base.model;
 
-public class TetrisScore {
-
-    private static final int LINES_PER_LEVEL = 10;
+public final class TetrisScore {
 
     private int score;
     private int level = 1;

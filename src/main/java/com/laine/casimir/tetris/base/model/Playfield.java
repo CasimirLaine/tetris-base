@@ -24,7 +24,7 @@ public final class Playfield {
         this.visibleHeight = visibleHeight;
     }
 
-    public boolean collides(int x, int y) {
+    private boolean collides(int x, int y) {
         if (y < visibleHeight - height || y >= visibleHeight || x < 0 || x >= width) {
             return true;
         }
