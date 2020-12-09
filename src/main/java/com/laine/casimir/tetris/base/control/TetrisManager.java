@@ -74,6 +74,7 @@ public final class TetrisManager {
             if (shouldClear) {
                 tetrisGame.getPlayfield().clearRow(y);
                 linesCleared++;
+                y++;
             }
         }
         tetrisGame.getTetrisScore().addLinesCleared(linesCleared);
