@@ -130,7 +130,7 @@ public final class TetrisController {
         return tetrisGame.isGameOver();
     }
 
-    public List<TetrisCell> getAllSquares() {
+    public List<TetrisCell> getAlLCells() {
         final List<TetrisCell> squareList = new ArrayList<>();
         squareList.addAll(tetrisGame.getPlayfield().getLandedSquares());
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
@@ -138,6 +138,10 @@ public final class TetrisController {
             squareList.addAll(fallingTetromino.getTetrisCellsWithPosition());
         }
         return squareList;
+    }
+
+    public List<TetrisCell> getGhostCells() {
+        return tetrisGame.getPlayfield().getGhostCells();
     }
 
     public BaseTetromino getHeldTetromino() {

@@ -102,6 +102,40 @@ public final class Playfield {
         return !collides;
     }
 
+    public int getMaxMoveY() {
+        if (fallingTetromino == null) {
+            return 0;
+        }
+        final List<TetrisCell> fallingTetrominoCells = fallingTetromino.getTetrisCells();
+        for (int moveY = 1; moveY < height; moveY++) {
+            for (int cellIndex = 0; cellIndex < fallingTetrominoCells.size(); cellIndex++) {
+                final TetrisCell tetrisCell = fallingTetrominoCells.get(cellIndex);
+                if (collides(tetrisCell.getX() + fallingTetromino.getPosition().getX(),
+                        tetrisCell.getY() + fallingTetromino.getPosition().getY() + moveY)) {
+                    return moveY - 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public List<TetrisCell> getGhostCells() {
+        final List<TetrisCell> ghostCellList = new ArrayList<>();
+        if (fallingTetromino == null) {
+            return ghostCellList;
+        }
+        final int moveY = getMaxMoveY();
+        final List<TetrisCell> fallingTetrominoCells = fallingTetromino.getTetrisCells();
+        for (int index = 0; index < fallingTetrominoCells.size(); index++) {
+            final TetrisCell fallingCell = fallingTetrominoCells.get(index);
+            final Square ghostSquare = new Square(fallingCell.getX() + fallingTetromino.getPosition().getX(),
+                    fallingCell.getY() + fallingTetromino.getPosition().getY() + moveY);
+            ghostSquare.setColorHex(fallingCell.getColorHex());
+            ghostCellList.add(ghostSquare);
+        }
+        return ghostCellList;
+    }
+
     public FallingTetromino getFallingTetromino() {
         return fallingTetromino;
     }
