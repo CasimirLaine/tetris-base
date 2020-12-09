@@ -6,7 +6,6 @@ import com.laine.casimir.tetris.base.tool.TetrominoQueue;
 
 public final class TetrisGame {
 
-    private static final float DROP_INTERVAL_START = 1_000;
     private static final float DROP_INTERVAL_MIN = 25;
 
     private final Playfield playfield = new Playfield(TetrisConstants.WIDTH, TetrisConstants.HEIGHT, TetrisConstants.VISIBLE_HEIGHT);
