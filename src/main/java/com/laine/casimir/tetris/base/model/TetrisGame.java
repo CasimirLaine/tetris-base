@@ -14,7 +14,6 @@ public final class TetrisGame {
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
     private final TetrisScore tetrisScore = new TetrisScore();
 
-    private float speed = 1F;
     private boolean gameOver;
     private boolean paused;
 
@@ -47,7 +46,7 @@ public final class TetrisGame {
     }
 
     public int getDropInterval() {
-        return (int) Math.max(DROP_INTERVAL_START / speed, DROP_INTERVAL_MIN);
+        return (int) Math.max(calculateDropInterval(), DROP_INTERVAL_MIN);
     }
 
     public boolean isGameOver() {
@@ -56,5 +55,10 @@ public final class TetrisGame {
 
     public boolean isRunning() {
         return !isPaused() && !isGameOver();
+    }
+
+    private double calculateDropInterval() {
+        final int level = tetrisScore.getLevel();
+        return 1_000 * Math.pow(0.8 - ((level - 1) * 0.007), level - 1);
     }
 }

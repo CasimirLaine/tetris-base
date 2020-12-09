@@ -53,8 +53,7 @@ public final class Tetromino implements BaseTetromino {
 
     @Override
     public List<TetrisCell> getTetrisCells() {
-        final List<TetrisCell> tetrisCells = new ArrayList<>(getSquares());
-        return tetrisCells;
+        return new ArrayList<>(getSquares());
     }
 
     List<Square> getSquares() {

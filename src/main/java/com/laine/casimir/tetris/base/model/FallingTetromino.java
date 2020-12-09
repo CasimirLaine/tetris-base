@@ -2,7 +2,6 @@ package com.laine.casimir.tetris.base.model;
 
 import com.laine.casimir.tetris.base.api.model.TetrisCell;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class FallingTetromino {
@@ -39,7 +38,6 @@ public final class FallingTetromino {
     }
 
     public List<Square> getTetrisCellsWithPosition() {
-        final List<Square> squares = new ArrayList<>();
         final List<Square> squareList = tetromino.getSquares();
         for (int index = 0; index < squareList.size(); index++) {
             final Square square = squareList.get(index);
@@ -47,8 +45,7 @@ public final class FallingTetromino {
             squarePosition.setX(squarePosition.getX() + getPosition().getX());
             squarePosition.setY(squarePosition.getY() + getPosition().getY());
         }
-        squares.addAll(squareList);
-        return squares;
+        return squareList;
     }
 
     public Position getPosition() {
