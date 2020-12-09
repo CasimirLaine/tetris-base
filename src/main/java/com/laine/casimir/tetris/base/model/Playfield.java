@@ -37,6 +37,21 @@ public final class Playfield {
         return false;
     }
 
+    private boolean canMove(int x, int y) {
+        if (fallingTetromino == null) {
+            return false;
+        }
+        final List<TetrisCell> fallingTetrominoCells = fallingTetromino.getTetrisCells();
+        for (int index = 0; index < fallingTetrominoCells.size(); index++) {
+            final TetrisCell fallingCell = fallingTetrominoCells.get(index);
+            if (collides(fallingCell.getX() + fallingTetromino.getPosition().getX() + x,
+                    fallingCell.getY() + fallingTetromino.getPosition().getY() + y)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean isFullRow(int y) {
         for (int x = 0; x < width; x++) {
             if (!collides(x, y)) {
@@ -55,11 +70,7 @@ public final class Playfield {
             if (square.getPosition().getY() == y) {
                 landedSquares.remove(index);
                 index--;
-            }
-        }
-        for (int index = 0; index < landedSquares.size(); index++) {
-            final Square square = landedSquares.get(index);
-            if (square.getPosition().getY() < y) {
+            } else if (square.getPosition().getY() < y) {
                 square.getPosition().setY(square.getPosition().getY() + 1);
             }
         }
@@ -77,23 +88,9 @@ public final class Playfield {
         if (fallingTetromino == null) {
             return false;
         }
-        pieceLockedOutOfBounds = false;
-        final List<TetrisCell> tetrisCellList = fallingTetromino.getTetrisCells();
-        boolean collides = false;
-        boolean pushedOutOfBounds = false;
-        for (int index = 0; index < tetrisCellList.size(); index++) {
-            final TetrisCell tetrisCell = tetrisCellList.get(index);
-            if (pushedOutOfBounds || tetrisCell.getY() + fallingTetromino.getPosition().getY() < 0) {
-                pushedOutOfBounds = true;
-            }
-            if (collides || collides(tetrisCell.getX() + fallingTetromino.getPosition().getX() + moveX,
-                    tetrisCell.getY() + fallingTetromino.getPosition().getY() + moveY)) {
-                collides = true;
-            }
-        }
-        if (pushedOutOfBounds && collides) {
-            pieceLockedOutOfBounds = true;
-        }
+        final boolean pushedOutOfBounds = fallingTetromino.getPosition().getY() < 0;
+        final boolean collides = !canMove(moveX, moveY);
+        pieceLockedOutOfBounds = pushedOutOfBounds && collides;
         if (!collides) {
             fallingTetromino.move(moveX, moveY);
         } else {
@@ -102,18 +99,13 @@ public final class Playfield {
         return !collides;
     }
 
-    public int getMaxMoveY() {
+    private int getMaxMoveY() {
         if (fallingTetromino == null) {
             return 0;
         }
-        final List<TetrisCell> fallingTetrominoCells = fallingTetromino.getTetrisCells();
         for (int moveY = 1; moveY < height; moveY++) {
-            for (int cellIndex = 0; cellIndex < fallingTetrominoCells.size(); cellIndex++) {
-                final TetrisCell tetrisCell = fallingTetrominoCells.get(cellIndex);
-                if (collides(tetrisCell.getX() + fallingTetromino.getPosition().getX(),
-                        tetrisCell.getY() + fallingTetromino.getPosition().getY() + moveY)) {
-                    return moveY - 1;
-                }
+            if (!canMove(0, moveY)) {
+                return moveY - 1;
             }
         }
         return 0;
@@ -143,7 +135,8 @@ public final class Playfield {
     public void setFallingTetromino(Tetromino fallingTetromino) {
         if (fallingTetromino != null) {
             this.fallingTetromino = new FallingTetromino(fallingTetromino);
-            move((int) (0.5F * TetrisConstants.WIDTH - Math.ceil(fallingTetromino.getDimension() * 0.5F)), -fallingTetromino.getDimension() + 1);
+            this.fallingTetromino.getPosition().setX((int) (0.5F * TetrisConstants.WIDTH - Math.ceil(fallingTetromino.getDimension() * 0.5F)));
+            this.fallingTetromino.getPosition().setY(-fallingTetromino.getDimension() + 1);
         } else {
             this.fallingTetromino = null;
         }
