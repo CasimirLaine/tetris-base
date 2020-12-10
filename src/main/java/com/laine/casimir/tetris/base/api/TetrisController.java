@@ -1,6 +1,7 @@
 package com.laine.casimir.tetris.base.api;
 
 import com.laine.casimir.tetris.base.api.model.BaseTetromino;
+import com.laine.casimir.tetris.base.api.model.ClearData;
 import com.laine.casimir.tetris.base.api.model.TetrisCell;
 import com.laine.casimir.tetris.base.control.TetrisManager;
 import com.laine.casimir.tetris.base.model.FallingTetromino;
@@ -142,6 +143,12 @@ public final class TetrisController {
 
     public List<TetrisCell> getGhostCells() {
         return tetrisGame.getPlayfield().getGhostCells();
+    }
+
+    public ClearData collectClearData() {
+        final ClearData clearData = tetrisGame.getClearData();
+        tetrisGame.setClearData(null);
+        return clearData;
     }
 
     public BaseTetromino getHeldTetromino() {

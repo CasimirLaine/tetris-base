@@ -61,19 +61,22 @@ public final class Playfield {
         return true;
     }
 
-    public void clearRow(int y) {
+    public List<TetrisCell> clearRow(int y) {
+        final List<TetrisCell> tetrisCellList = new ArrayList<>();
         if (y < visibleHeight - height || y >= visibleHeight) {
-            return;
+            return tetrisCellList;
         }
         for (int index = 0; index < landedSquares.size(); index++) {
             final Square square = landedSquares.get(index);
             if (square.getPosition().getY() == y) {
                 landedSquares.remove(index);
+                tetrisCellList.add(square);
                 index--;
             } else if (square.getPosition().getY() < y) {
                 square.getPosition().setY(square.getPosition().getY() + 1);
             }
         }
+        return tetrisCellList;
     }
 
     public void shiftLeft() {

@@ -1,6 +1,7 @@
 package com.laine.casimir.tetris.base.model;
 
 import com.laine.casimir.tetris.base.api.TetrisConstants;
+import com.laine.casimir.tetris.base.api.model.ClearData;
 import com.laine.casimir.tetris.base.tool.HoldBox;
 import com.laine.casimir.tetris.base.tool.TetrominoQueue;
 
@@ -12,6 +13,8 @@ public final class TetrisGame {
     private final HoldBox holdBox = new HoldBox();
     private final TetrominoQueue tetrominoQueue = new TetrominoQueue();
     private final TetrisScore tetrisScore = new TetrisScore();
+
+    private ClearData clearData;
 
     private boolean gameOver;
     private boolean paused;
@@ -59,5 +62,13 @@ public final class TetrisGame {
     private double calculateDropInterval() {
         final int level = tetrisScore.getLevel();
         return 1_000 * Math.pow(0.8 - ((level - 1) * 0.007), level - 1);
+    }
+
+    public ClearData getClearData() {
+        return clearData;
+    }
+
+    public void setClearData(ClearData clearData) {
+        this.clearData = clearData;
     }
 }

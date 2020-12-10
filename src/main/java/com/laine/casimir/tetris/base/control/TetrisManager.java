@@ -1,9 +1,14 @@
 package com.laine.casimir.tetris.base.control;
 
+import com.laine.casimir.tetris.base.api.model.ClearData;
+import com.laine.casimir.tetris.base.api.model.TetrisCell;
 import com.laine.casimir.tetris.base.model.FallingTetromino;
 import com.laine.casimir.tetris.base.model.Position;
 import com.laine.casimir.tetris.base.model.TetrisGame;
 import com.laine.casimir.tetris.base.model.Tetromino;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class TetrisManager {
 
@@ -70,14 +75,15 @@ public final class TetrisManager {
         final Position fallingTetrominoPosition = tetrisGame.getPlayfield().getFallingTetromino().getPosition();
         tetrisGame.getPlayfield().getLandedSquares().addAll(tetrisGame.getPlayfield().getFallingTetromino().getTetrisCellsWithPosition());
         int linesCleared = 0;
-        for (int y = tetrisGame.getPlayfield().getVisibleHeight() - 1; y >= fallingTetrominoPosition.getY(); y--) {
+        final List<TetrisCell> clearedCells = new ArrayList<>();
+        for (int y = fallingTetrominoPosition.getY(); y < tetrisGame.getPlayfield().getVisibleHeight(); y++) {
             final boolean shouldClear = tetrisGame.getPlayfield().isFullRow(y);
             if (shouldClear) {
-                tetrisGame.getPlayfield().clearRow(y);
+                clearedCells.addAll(tetrisGame.getPlayfield().clearRow(y));
                 linesCleared++;
-                y++;
             }
         }
+        updateClearData(clearedCells, linesCleared);
         tetrisGame.getTetrisScore().processLines(linesCleared, isTSpin);
         tetrisGame.getPlayfield().setFallingTetromino(null);
     }
@@ -98,5 +104,12 @@ public final class TetrisManager {
         }
         return "T".equals(fallingTetromino.getTetromino().getName()) && !tetrisGame.getPlayfield().canMove(-1, 0)
                 && !tetrisGame.getPlayfield().canMove(1, 0) && !tetrisGame.getPlayfield().canMove(0, -1);
+    }
+
+    private void updateClearData(List<TetrisCell> tetrisCellList, int linesCleared) {
+        if (linesCleared > 0) {
+            final ClearData clearData = new ClearData(tetrisCellList, linesCleared);
+            tetrisGame.setClearData(clearData);
+        }
     }
 }
