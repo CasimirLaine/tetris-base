@@ -79,15 +79,16 @@ public final class Tetromino implements BaseTetromino {
     }
 
     private int getRotatedIndex(int x, int y) {
+        final int dimension = getDimension();
         switch (Math.abs(ROTATION_COUNT + rotation) % ROTATION_COUNT) {
             case ROTATION_0:
-                return y * getDimension() + x;
+                return y * dimension + x;
             case ROTATION_90:
-                return (getDimension() * getDimension() - getDimension()) + y - x * getDimension();
+                return (dimension * dimension - dimension) + y - x * dimension;
             case ROTATION_180:
-                return (getDimension() * getDimension() - 1) - y * getDimension() - x;
+                return (dimension * dimension - 1) - y * dimension - x;
             case ROTATION_270:
-                return (getDimension() - 1) - y + getDimension() * x;
+                return (dimension - 1) - y + dimension * x;
             default:
                 return 0;
         }
