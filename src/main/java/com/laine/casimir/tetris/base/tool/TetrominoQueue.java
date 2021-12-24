@@ -22,6 +22,9 @@ public final class TetrominoQueue {
     }
 
     public Tetromino getPreview(int index) {
+        if (index < 0) {
+            return null;
+        }
         if (currentTetrominoBag.isEmpty()) {
             nextBag();
         }

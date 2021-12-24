@@ -30,7 +30,7 @@ final class TetrominoBag {
     }
 
     public Tetromino getPreview(int index) {
-        if (index >= tetrominos.size()) {
+        if (index >= tetrominos.size() || index < 0) {
             return null;
         }
         return tetrominos.get(index);
@@ -44,7 +44,7 @@ final class TetrominoBag {
         return tetrominos.isEmpty();
     }
 
-    private Tetromino createI() {
+    private static Tetromino createI() {
         final Tetromino tetromino = new Tetromino("I", "#00FFFF", 4, getIKickData());
         tetromino.setSquare(0, 1, true);
         tetromino.setSquare(1, 1, true);
@@ -53,7 +53,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private Tetromino createJ() {
+    private static Tetromino createJ() {
         final Tetromino tetromino = new Tetromino("J", "#0000FF", 3, getDefaultKickData());
         tetromino.setSquare(0, 0, true);
         tetromino.setSquare(0, 1, true);
@@ -62,7 +62,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private Tetromino createL() {
+    private static Tetromino createL() {
         final Tetromino tetromino = new Tetromino("L", "#FFA500", 3, getDefaultKickData());
         tetromino.setSquare(2, 0, true);
         tetromino.setSquare(0, 1, true);
@@ -71,7 +71,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private Tetromino createO() {
+    private static Tetromino createO() {
         final Tetromino tetromino = new Tetromino("O", "#FFFF00", 2, getDefaultKickData());
         tetromino.setSquare(0, 0, true);
         tetromino.setSquare(1, 0, true);
@@ -80,7 +80,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private Tetromino createS() {
+    private static Tetromino createS() {
         final Tetromino tetromino = new Tetromino("S", "#00FF00", 3, getDefaultKickData());
         tetromino.setSquare(1, 0, true);
         tetromino.setSquare(2, 0, true);
@@ -89,7 +89,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private Tetromino createT() {
+    private static Tetromino createT() {
         final Tetromino tetromino = new Tetromino("T", "#800080", 3, getDefaultKickData());
         tetromino.setSquare(1, 0, true);
         tetromino.setSquare(0, 1, true);
@@ -98,7 +98,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private Tetromino createZ() {
+    private static Tetromino createZ() {
         final Tetromino tetromino = new Tetromino("Z", "#FF0000", 3, getDefaultKickData());
         tetromino.setSquare(0, 0, true);
         tetromino.setSquare(1, 0, true);
@@ -107,7 +107,7 @@ final class TetrominoBag {
         return tetromino;
     }
 
-    private int[] getDefaultKickData() {
+    private static int[] getDefaultKickData() {
         return new int[]{
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 -1, 0, 1, 0, 1, 0, -1, 0, 1, 0, -1, 0, -1, 0, 1, 0,
@@ -117,7 +117,7 @@ final class TetrominoBag {
         };
     }
 
-    private int[] getIKickData() {
+    private static int[] getIKickData() {
         return new int[]{
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 -2, 0, 2, 0, -1, 0, 1, 0, 2, 0, -2, 0, 1, 0, -1, 0,
