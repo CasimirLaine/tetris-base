@@ -2,6 +2,13 @@ plugins {
     id 'java'
 }
 
+sourceSets {
+    main {
+    }
+    test {
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -15,9 +22,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform('org.junit:junit-bom:5.8.2'))
-    testImplementation('org.junit.jupiter:junit-jupiter')
-    implementation 'org.jacoco:org.jacoco.core:0.8.7'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.jacoco:org.jacoco.core:0.8.7'
 }
 
 test {
@@ -25,4 +32,6 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+    testLogging.showStandardStreams = true
 }
+

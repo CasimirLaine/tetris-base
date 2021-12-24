@@ -4,6 +4,8 @@ import com.laine.casimir.tetris.base.model.Tetromino;
 
 public final class TetrominoQueue {
 
+    public static final int BAG_SIZE = 7;
+
     private TetrominoBag currentTetrominoBag;
     private TetrominoBag nextTetrominoBag;
 
