@@ -108,7 +108,7 @@ public final class TetrisManager {
 
     private void updateClearData(List<TetrisCell> tetrisCellList, int linesCleared) {
         if (linesCleared > 0) {
-            final ClearData clearData = new ClearData(tetrisCellList, linesCleared);
+            final ClearData clearData = new ClearData(tetrisCellList);
             tetrisGame.setClearData(clearData);
         }
     }

@@ -39,4 +39,13 @@ class TetrominoQueueTests {
         Assertions.assertSame(x, y);
         Assertions.assertNull(tetrominoQueue.getPreview(-1));
     }
+
+    @Test
+    void testPreviewEmpty() {
+        for (int index = 0; index < TetrominoQueue.BAG_SIZE * 2; index++) {
+            tetrominoQueue.pick();
+        }
+        final Tetromino x = tetrominoQueue.getPreview(0);
+        Assertions.assertNotNull(x);
+    }
 }
