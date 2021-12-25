@@ -6,12 +6,8 @@ public final class Position {
     private int y;
 
     Position() {
-        this(0, 0);
-    }
-
-    Position(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.x = 0;
+        this.y = 0;
     }
 
     public boolean collides(int x, int y) {
@@ -36,6 +32,6 @@ public final class Position {
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj.getClass() == getClass() && ((Position) obj).x == x && ((Position) obj).y == y;
+        return getClass().isInstance(obj) && ((Position) obj).x == x && ((Position) obj).y == y;
     }
 }
