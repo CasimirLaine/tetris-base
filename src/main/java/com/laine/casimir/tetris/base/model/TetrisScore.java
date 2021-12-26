@@ -2,8 +2,13 @@ package com.laine.casimir.tetris.base.model;
 
 public final class TetrisScore {
 
+    public static final int MAX_LINES = 4;
+    public static final int START_LEVEL = 1;
+    public static final int LINES_PER_LEVEL_MULTIPLIER = 5;
+    public static final int DIFFICULT_CLEAR = 4;
+
     private int score;
-    private int level = 1;
+    private int level = START_LEVEL;
     private int linesCleared;
 
     private int linesClearedInLevel;
@@ -11,23 +16,41 @@ public final class TetrisScore {
 
     private boolean wasDifficultClear;
 
-    public void processLines(int lines, boolean isTSpin) {
+    public void processLines(final int lines, boolean isTSpin) {
+        if (lines < 0 || lines > MAX_LINES) {
+            return;
+        }
         addLinesCleared(lines);
         if (isTSpin) {
             addTSpin(lines);
         }
-        wasDifficultClear = lines == 4 || (isTSpin && (lines > 0 || wasDifficultClear));
-        if (lines <= 0) {
+        wasDifficultClear = lines == DIFFICULT_CLEAR || (isTSpin && (lines > 0 || wasDifficultClear));
+        if (lines == 0) {
             resetCombo();
         }
     }
 
     public void addScore(int score) {
+        if (score <= 0) {
+            return;
+        }
         this.score += score;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getLinesCleared() {
+        return linesCleared;
+    }
+
     private void addLinesCleared(int lines) {
-        if (lines <= 0) {
+        if (lines <= 0 || lines > MAX_LINES) {
             return;
         }
         this.linesCleared += lines;
@@ -46,18 +69,6 @@ public final class TetrisScore {
 
     private void resetCombo() {
         combo = 0;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getLinesCleared() {
-        return linesCleared;
     }
 
     private int getScoreForLines(int lines) {
@@ -103,6 +114,6 @@ public final class TetrisScore {
     }
 
     private int getLevelGoal() {
-        return 5 * level;
+        return LINES_PER_LEVEL_MULTIPLIER * level;
     }
 }

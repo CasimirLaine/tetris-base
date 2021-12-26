@@ -50,9 +50,9 @@ class PositionTests {
         final int y = 2;
         otherPosition.setX(x);
         otherPosition.setY(y);
-        Assertions.assertFalse(position.equals(otherPosition));
+        Assertions.assertNotEquals(position, otherPosition);
         position.setX(x);
         position.setY(y);
-        Assertions.assertTrue(position.equals(otherPosition));
+        Assertions.assertEquals(position, otherPosition);
     }
 }
