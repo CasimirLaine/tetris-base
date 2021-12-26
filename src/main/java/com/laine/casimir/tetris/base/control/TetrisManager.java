@@ -102,7 +102,7 @@ public final class TetrisManager {
         if (fallingTetromino == null) {
             return false;
         }
-        return "T".equals(fallingTetromino.getTetromino().getName()) && !tetrisGame.getPlayfield().canMove(-1, 0)
+        return Tetromino.TETROMINO_T.equals(fallingTetromino.getTetromino().getName()) && !tetrisGame.getPlayfield().canMove(-1, 0)
                 && !tetrisGame.getPlayfield().canMove(1, 0) && !tetrisGame.getPlayfield().canMove(0, -1);
     }
 

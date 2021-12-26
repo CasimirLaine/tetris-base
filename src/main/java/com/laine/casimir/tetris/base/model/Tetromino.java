@@ -8,6 +8,14 @@ import java.util.List;
 
 public final class Tetromino implements BaseTetromino {
 
+    public static final String TETROMINO_I = "I";
+    public static final String TETROMINO_J = "J";
+    public static final String TETROMINO_L = "L";
+    public static final String TETROMINO_O = "O";
+    public static final String TETROMINO_S = "S";
+    public static final String TETROMINO_T = "T";
+    public static final String TETROMINO_Z = "Z";
+
     private static final int ROTATION_COUNT = 4;
     private static final int WALL_KICK_COUNT = 2 * ROTATION_COUNT;
     private static final int NUMBERS_PER_KICK = WALL_KICK_COUNT * 2;
@@ -35,7 +43,7 @@ public final class Tetromino implements BaseTetromino {
         return data[getRotatedIndex(x, y)];
     }
 
-    public void setSquare(int x, int y, boolean enabled) {
+    private void setSquare(int x, int y, boolean enabled) {
         data[getRotatedIndex(x, y)] = enabled;
     }
 
@@ -81,6 +89,7 @@ public final class Tetromino implements BaseTetromino {
     private int getRotatedIndex(int x, int y) {
         final int dimension = getDimension();
         switch (Math.abs(ROTATION_COUNT + rotation) % ROTATION_COUNT) {
+            default:
             case ROTATION_0:
                 return y * dimension + x;
             case ROTATION_90:
@@ -89,8 +98,6 @@ public final class Tetromino implements BaseTetromino {
                 return (dimension * dimension - 1) - y * dimension - x;
             case ROTATION_270:
                 return (dimension - 1) - y + dimension * x;
-            default:
-                return 0;
         }
     }
 
@@ -117,7 +124,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createI() {
-        final Tetromino tetromino = new Tetromino("I", "#00FFFF", 4, getIKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_I, "#00FFFF", 4, getIKickData());
         tetromino.setSquare(0, 1, true);
         tetromino.setSquare(1, 1, true);
         tetromino.setSquare(2, 1, true);
@@ -126,7 +133,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createJ() {
-        final Tetromino tetromino = new Tetromino("J", "#0000FF", 3, getDefaultKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_J, "#0000FF", 3, getDefaultKickData());
         tetromino.setSquare(0, 0, true);
         tetromino.setSquare(0, 1, true);
         tetromino.setSquare(1, 1, true);
@@ -135,7 +142,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createL() {
-        final Tetromino tetromino = new Tetromino("L", "#FFA500", 3, getDefaultKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_L, "#FFA500", 3, getDefaultKickData());
         tetromino.setSquare(2, 0, true);
         tetromino.setSquare(0, 1, true);
         tetromino.setSquare(1, 1, true);
@@ -144,7 +151,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createO() {
-        final Tetromino tetromino = new Tetromino("O", "#FFFF00", 2, getDefaultKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_O, "#FFFF00", 2, getDefaultKickData());
         tetromino.setSquare(0, 0, true);
         tetromino.setSquare(1, 0, true);
         tetromino.setSquare(0, 1, true);
@@ -153,7 +160,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createS() {
-        final Tetromino tetromino = new Tetromino("S", "#00FF00", 3, getDefaultKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_S, "#00FF00", 3, getDefaultKickData());
         tetromino.setSquare(1, 0, true);
         tetromino.setSquare(2, 0, true);
         tetromino.setSquare(0, 1, true);
@@ -162,7 +169,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createT() {
-        final Tetromino tetromino = new Tetromino("T", "#800080", 3, getDefaultKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_T, "#800080", 3, getDefaultKickData());
         tetromino.setSquare(1, 0, true);
         tetromino.setSquare(0, 1, true);
         tetromino.setSquare(1, 1, true);
@@ -171,7 +178,7 @@ public final class Tetromino implements BaseTetromino {
     }
 
     public static Tetromino createZ() {
-        final Tetromino tetromino = new Tetromino("Z", "#FF0000", 3, getDefaultKickData());
+        final Tetromino tetromino = new Tetromino(TETROMINO_Z, "#FF0000", 3, getDefaultKickData());
         tetromino.setSquare(0, 0, true);
         tetromino.setSquare(1, 0, true);
         tetromino.setSquare(1, 1, true);
