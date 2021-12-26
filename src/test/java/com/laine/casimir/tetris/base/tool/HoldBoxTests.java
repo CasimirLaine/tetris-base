@@ -9,10 +9,6 @@ class HoldBoxTests {
 
     private HoldBox holdBox;
 
-    private Tetromino createTetromino() {
-        return new Tetromino("test", "#000000", 4, new int[]{});
-    }
-
     @BeforeEach
     void init() {
         holdBox = new HoldBox();
@@ -20,7 +16,7 @@ class HoldBoxTests {
 
     @Test
     void testSet() {
-        final Tetromino tetromino = createTetromino();
+        final Tetromino tetromino = Tetromino.createI();
         Assertions.assertNull(holdBox.getTetromino());
         Assertions.assertSame(holdBox.setTetromino(tetromino), null);
         Assertions.assertSame(holdBox.setTetromino(tetromino), tetromino);
