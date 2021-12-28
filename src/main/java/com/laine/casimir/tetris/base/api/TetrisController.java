@@ -12,6 +12,9 @@ import com.laine.casimir.tetris.base.model.Tetromino;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used to control the tetris game.
+ */
 public final class TetrisController {
 
     private final TetrisManager tetrisManager;
@@ -22,11 +25,17 @@ public final class TetrisController {
 
     private boolean started;
 
+    /**
+     * Creates and initializes a new tetris game.
+     */
     public TetrisController() {
         this.tetrisGame = new TetrisGame();
         this.tetrisManager = new TetrisManager(tetrisGame);
     }
 
+    /**
+     * Starts the tetris game.
+     */
     public void start() {
         if (started) {
             return;
@@ -35,6 +44,9 @@ public final class TetrisController {
         tetrisGame.setPaused(false);
     }
 
+    /**
+     * Progresses the tetris game one step further. In practise, drops the falling tetromino one step down according to the gravity.
+     */
     public void update() {
         if (!tetrisGame.isGameOver() && System.currentTimeMillis() - lastDrop >= tetrisGame.getDropInterval()) {
             if (!tetrisGame.isRunning()) {
@@ -49,6 +61,9 @@ public final class TetrisController {
         }
     }
 
+    /**
+     * Moves the falling tetromino left, if possible.
+     */
     public void shiftLeft() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -57,6 +72,9 @@ public final class TetrisController {
         playfield.shiftLeft();
     }
 
+    /**
+     * Moves the falling tetromino right, if possible.
+     */
     public void shiftRight() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -65,6 +83,9 @@ public final class TetrisController {
         playfield.shiftRight();
     }
 
+    /**
+     * Rotates the falling tetromino clockwise.
+     */
     public void rotateClockwise() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -72,6 +93,9 @@ public final class TetrisController {
         tetrisManager.rotate(true);
     }
 
+    /**
+     * Rotates the falling tetromino counterclockwise.
+     */
     public void rotateCounterclockwise() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -79,6 +103,9 @@ public final class TetrisController {
         tetrisManager.rotate(false);
     }
 
+    /**
+     * Drops the falling tetromino to the ground.
+     */
     public void hardDrop() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -86,6 +113,9 @@ public final class TetrisController {
         tetrisManager.hardDrop();
     }
 
+    /**
+     * Moves the falling tetromino one step down.
+     */
     public void softDrop() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -93,6 +123,9 @@ public final class TetrisController {
         tetrisManager.softDrop();
     }
 
+    /**
+     * Moves the falling tetromino to the hold box. This will pick new tetromino to be the falling one.
+     */
     public void hold() {
         if (!tetrisGame.isRunning()) {
             return;
@@ -115,22 +148,43 @@ public final class TetrisController {
         }
     }
 
+    /**
+     * Pause the game.
+     */
     public void pause() {
         tetrisGame.setPaused(true);
     }
 
+    /**
+     * Resume the game from pause.
+     */
     public void resume() {
         tetrisGame.setPaused(false);
     }
 
+    /**
+     * Checks whether the game is paused.
+     *
+     * @return Whether the game is paused or not.
+     */
     public boolean isPaused() {
         return tetrisGame.isPaused();
     }
 
+    /**
+     * Checks whether the game is over.
+     *
+     * @return Whether the game is over or not.
+     */
     public boolean isGameOver() {
         return tetrisGame.isGameOver();
     }
 
+    /**
+     * Gets all the tetris cells in the playfield.
+     *
+     * @return A list of {@link TetrisCell} objects.
+     */
     public List<TetrisCell> getAlLCells() {
         final List<TetrisCell> squareList = new ArrayList<>(tetrisGame.getPlayfield().getLandedSquares());
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
@@ -140,20 +194,41 @@ public final class TetrisController {
         return squareList;
     }
 
+    /**
+     * Returns the position of ghost cells. Ghost cells are where the falling tetromino would land were it hard-dropped.
+     *
+     * @return A list of {@link TetrisCell} objects.
+     */
     public List<TetrisCell> getGhostCells() {
         return tetrisGame.getPlayfield().getGhostCells();
     }
 
+    /**
+     * Collect and empty the cleared tetris cells.
+     *
+     * @return {@link ClearData} object.
+     */
     public ClearData collectClearData() {
         final ClearData clearData = tetrisGame.getClearData();
         tetrisGame.setClearData(null);
         return clearData;
     }
 
+    /**
+     * Get the tetromino that lies in the hold box or null if the hold box is empty.
+     *
+     * @return {@link BaseTetromino} object that lies in the hold box.
+     */
     public BaseTetromino getHeldTetromino() {
         return tetrisGame.getHoldBox().getTetromino();
     }
 
+    /**
+     * Gets the list of tetrominoes that are in the queue to be dropped.
+     *
+     * @param count How many tetrominoes to fetch from the queue.
+     * @return Array of {@link BaseTetromino} objects.
+     */
     public BaseTetromino[] getPreviewTetrominos(int count) {
         final Tetromino[] previewTetrominos = new Tetromino[count];
         for (int index = 0; index < count; index++) {
@@ -162,14 +237,29 @@ public final class TetrisController {
         return previewTetrominos;
     }
 
+    /**
+     * Get the current score of the player.
+     *
+     * @return Player score.
+     */
     public int getScore() {
         return tetrisGame.getTetrisScore().getScore();
     }
 
+    /**
+     * Get the current level of the player.
+     *
+     * @return Player level.
+     */
     public int getLevel() {
         return tetrisGame.getTetrisScore().getLevel();
     }
 
+    /**
+     * Get the amount of rows the player has cleared.
+     *
+     * @return Cleared row count.
+     */
     public int getClearedRows() {
         return tetrisGame.getTetrisScore().getLinesCleared();
     }
