@@ -70,10 +70,19 @@ public final class TetrisManager {
         }
     }
 
+    public void nextTetromino() {
+        if (tetrisGame.getPlayfield().isPieceLockedOutOfBounds()) {
+            tetrisGame.end();
+            return;
+        }
+        final Tetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
+        tetrisGame.getPlayfield().setFallingTetromino(nextTetromino);
+    }
+
     private void atomizeTetromino() {
         final boolean isTSpin = isTSpin();
         final Position fallingTetrominoPosition = tetrisGame.getPlayfield().getFallingTetromino().getPosition();
-        tetrisGame.getPlayfield().getLandedSquares().addAll(tetrisGame.getPlayfield().getFallingTetromino().getTetrisCellsWithPosition());
+        tetrisGame.getPlayfield().getLandedSquares().addAll(tetrisGame.getPlayfield().getFallingTetromino().getTetrisCellPositions());
         int linesCleared = 0;
         final List<TetrisCell> clearedCells = new ArrayList<>();
         for (int y = fallingTetrominoPosition.getY(); y < tetrisGame.getPlayfield().getVisibleHeight(); y++) {
@@ -86,15 +95,6 @@ public final class TetrisManager {
         updateClearData(clearedCells, linesCleared);
         tetrisGame.getTetrisScore().processLines(linesCleared, isTSpin);
         tetrisGame.getPlayfield().setFallingTetromino(null);
-    }
-
-    public void nextTetromino() {
-        if (tetrisGame.getPlayfield().isPieceLockedOutOfBounds()) {
-            tetrisGame.end();
-            return;
-        }
-        final Tetromino nextTetromino = tetrisGame.getTetrominoQueue().pick();
-        tetrisGame.getPlayfield().setFallingTetromino(nextTetromino);
     }
 
     private boolean isTSpin() {

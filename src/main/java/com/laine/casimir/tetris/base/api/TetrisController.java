@@ -135,7 +135,7 @@ public final class TetrisController {
         final List<TetrisCell> squareList = new ArrayList<>(tetrisGame.getPlayfield().getLandedSquares());
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino != null) {
-            squareList.addAll(fallingTetromino.getTetrisCellsWithPosition());
+            squareList.addAll(fallingTetromino.getTetrisCellPositions());
         }
         return squareList;
     }

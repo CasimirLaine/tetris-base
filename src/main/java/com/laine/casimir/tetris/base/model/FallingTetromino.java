@@ -37,7 +37,7 @@ public final class FallingTetromino {
         return tetromino.getTetrisCells();
     }
 
-    public List<Square> getTetrisCellsWithPosition() {
+    public List<Square> getTetrisCellPositions() {
         final List<Square> squareList = tetromino.getSquares();
         for (int index = 0; index < squareList.size(); index++) {
             final Square square = squareList.get(index);

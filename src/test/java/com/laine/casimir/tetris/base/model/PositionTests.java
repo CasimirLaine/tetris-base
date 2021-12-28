@@ -54,5 +54,6 @@ class PositionTests {
         position.setX(x);
         position.setY(y);
         Assertions.assertEquals(position, otherPosition);
+        Assertions.assertNotEquals(position, null);
     }
 }
