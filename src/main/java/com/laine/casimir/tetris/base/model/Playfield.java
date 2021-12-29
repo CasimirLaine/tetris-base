@@ -24,19 +24,6 @@ public final class Playfield {
         this.visibleHeight = visibleHeight;
     }
 
-    private boolean collides(int x, int y) {
-        if (y < visibleHeight - height || y >= visibleHeight || x < 0 || x >= width) {
-            return true;
-        }
-        for (int index = 0; index < landedSquares.size(); index++) {
-            final Square landedSquare = landedSquares.get(index);
-            if (landedSquare.getPosition().collides(x, y)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean canMove(int x, int y) {
         if (fallingTetromino == null) {
             return false;
@@ -102,18 +89,6 @@ public final class Playfield {
         return !collides;
     }
 
-    private int getMaxMoveY() {
-        if (fallingTetromino == null) {
-            return 0;
-        }
-        for (int moveY = 1; moveY < height; moveY++) {
-            if (!canMove(0, moveY)) {
-                return moveY - 1;
-            }
-        }
-        return 0;
-    }
-
     public List<TetrisCell> getGhostCells() {
         final List<TetrisCell> ghostCellList = new ArrayList<>();
         if (fallingTetromino == null) {
@@ -158,5 +133,30 @@ public final class Playfield {
 
     public boolean isPieceLockedOutOfBounds() {
         return pieceLockedOutOfBounds;
+    }
+
+    private boolean collides(int x, int y) {
+        if (y < visibleHeight - height || y >= visibleHeight || x < 0 || x >= width) {
+            return true;
+        }
+        for (int index = 0; index < landedSquares.size(); index++) {
+            final Square landedSquare = landedSquares.get(index);
+            if (landedSquare.getPosition().collides(x, y)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int getMaxMoveY() {
+        if (fallingTetromino == null) {
+            return 0;
+        }
+        for (int moveY = 1; moveY < height; moveY++) {
+            if (!canMove(0, moveY)) {
+                return moveY - 1;
+            }
+        }
+        return 0;
     }
 }

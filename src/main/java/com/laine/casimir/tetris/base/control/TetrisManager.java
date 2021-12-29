@@ -44,28 +44,29 @@ public final class TetrisManager {
     public void rotate(boolean clockwise) {
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         final boolean canMove = tetrisGame.getPlayfield().move(0, 0);
-        if (fallingTetromino != null && canMove) {
-            final int x = fallingTetromino.getPosition().getX();
-            final int y = fallingTetromino.getPosition().getY();
-            for (int index = 0; index < fallingTetromino.getTetromino().getKickIndexCount(); index++) {
-                fallingTetromino.move(fallingTetromino.getTetromino().getKickX(index, clockwise),
-                        fallingTetromino.getTetromino().getKickY(index, clockwise));
-                if (clockwise) {
+        if (fallingTetromino == null || !canMove) {
+            return;
+        }
+        final int x = fallingTetromino.getPosition().getX();
+        final int y = fallingTetromino.getPosition().getY();
+        for (int index = 0; index < fallingTetromino.getTetromino().getKickIndexCount(); index++) {
+            fallingTetromino.move(fallingTetromino.getTetromino().getKickX(index, clockwise),
+                    fallingTetromino.getTetromino().getKickY(index, clockwise));
+            if (clockwise) {
+                fallingTetromino.getTetromino().rotateClockwise();
+            } else {
+                fallingTetromino.getTetromino().rotateCounterclockwise();
+            }
+            if (!tetrisGame.getPlayfield().move(0, 0)) {
+                if (!clockwise) {
                     fallingTetromino.getTetromino().rotateClockwise();
                 } else {
                     fallingTetromino.getTetromino().rotateCounterclockwise();
                 }
-                if (!tetrisGame.getPlayfield().move(0, 0)) {
-                    if (!clockwise) {
-                        fallingTetromino.getTetromino().rotateClockwise();
-                    } else {
-                        fallingTetromino.getTetromino().rotateCounterclockwise();
-                    }
-                    fallingTetromino.getPosition().setX(x);
-                    fallingTetromino.getPosition().setY(y);
-                } else {
-                    break;
-                }
+                fallingTetromino.getPosition().setX(x);
+                fallingTetromino.getPosition().setY(y);
+            } else {
+                break;
             }
         }
     }
