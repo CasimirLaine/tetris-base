@@ -48,10 +48,7 @@ public final class TetrisController {
      * Progresses the tetris game one step further. In practise, drops the falling tetromino one step down according to the gravity.
      */
     public void update() {
-        if (!tetrisGame.isGameOver() && System.currentTimeMillis() - lastDrop >= tetrisGame.getDropInterval()) {
-            if (!tetrisGame.isRunning()) {
-                return;
-            }
+        if (tetrisGame.isRunning() && started && System.currentTimeMillis() - lastDrop >= tetrisGame.getDropInterval()) {
             if (tetrisGame.getPlayfield().getFallingTetromino() == null) {
                 tetrisManager.nextTetromino();
             } else {
@@ -65,7 +62,7 @@ public final class TetrisController {
      * Moves the falling tetromino left, if possible.
      */
     public void shiftLeft() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         final Playfield playfield = tetrisGame.getPlayfield();
@@ -76,7 +73,7 @@ public final class TetrisController {
      * Moves the falling tetromino right, if possible.
      */
     public void shiftRight() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         final Playfield playfield = tetrisGame.getPlayfield();
@@ -87,7 +84,7 @@ public final class TetrisController {
      * Rotates the falling tetromino clockwise.
      */
     public void rotateClockwise() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         tetrisManager.rotate(true);
@@ -97,7 +94,7 @@ public final class TetrisController {
      * Rotates the falling tetromino counterclockwise.
      */
     public void rotateCounterclockwise() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         tetrisManager.rotate(false);
@@ -107,7 +104,7 @@ public final class TetrisController {
      * Drops the falling tetromino to the ground.
      */
     public void hardDrop() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         tetrisManager.hardDrop();
@@ -117,7 +114,7 @@ public final class TetrisController {
      * Moves the falling tetromino one step down.
      */
     public void softDrop() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         tetrisManager.softDrop();
@@ -127,7 +124,7 @@ public final class TetrisController {
      * Moves the falling tetromino to the hold box. This will pick new tetromino to be the falling one.
      */
     public void hold() {
-        if (!tetrisGame.isRunning()) {
+        if (!tetrisGame.isRunning() || !started) {
             return;
         }
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
@@ -230,6 +227,9 @@ public final class TetrisController {
      * @return Array of {@link BaseTetromino} objects.
      */
     public BaseTetromino[] getPreviewTetrominos(int count) {
+        if (count < 0) {
+            count = 0;
+        }
         final Tetromino[] previewTetrominos = new Tetromino[count];
         for (int index = 0; index < count; index++) {
             previewTetrominos[index] = tetrisGame.getTetrominoQueue().getPreview(index);
