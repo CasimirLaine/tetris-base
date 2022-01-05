@@ -221,9 +221,9 @@ public final class TetrisController {
     }
 
     /**
-     * Gets the list of tetrominoes that are in the queue to be dropped.
+     * Gets the list of tetrominos that are in the queue to be dropped.
      *
-     * @param count How many tetrominoes to fetch from the queue.
+     * @param count How many tetrominos to fetch from the queue.
      * @return Array of {@link BaseTetromino} objects.
      */
     public BaseTetromino[] getPreviewTetrominos(int count) {
