@@ -85,10 +85,10 @@ class TetrisControllerTests {
 
     @Test
     void testAllCells() {
-        Assertions.assertTrue(tetrisController.getAlLCells().isEmpty());
+        Assertions.assertTrue(tetrisController.getAllCells().isEmpty());
         tetrisController.start();
         update();
-        Assertions.assertFalse(tetrisController.getAlLCells().isEmpty());
+        Assertions.assertFalse(tetrisController.getAllCells().isEmpty());
     }
 
     @Test
@@ -116,24 +116,24 @@ class TetrisControllerTests {
         tetrisController.softDrop();
         tetrisController.start();
         update();
-        final List<TetrisCell> tetrisCells = tetrisController.getAlLCells();
+        final List<TetrisCell> tetrisCells = tetrisController.getAllCells();
         final int cellCount = tetrisCells.size();
         Assertions.assertTrue(cellCount > 0);
         tetrisController.softDrop();
         update();
-        Assertions.assertTrue(cellCount == tetrisController.getAlLCells().size());
+        Assertions.assertTrue(cellCount == tetrisController.getAllCells().size());
     }
 
     @Test
     void testHardDrop() {
         tetrisController.hardDrop();
         tetrisController.start();
-        final List<TetrisCell> tetrisCells = tetrisController.getAlLCells();
+        final List<TetrisCell> tetrisCells = tetrisController.getAllCells();
         final int cellCount = tetrisCells.size();
         Assertions.assertTrue(cellCount == 0);
         tetrisController.hardDrop();
         update();
-        Assertions.assertTrue(cellCount != tetrisController.getAlLCells().size());
+        Assertions.assertTrue(cellCount != tetrisController.getAllCells().size());
     }
 
     @Test

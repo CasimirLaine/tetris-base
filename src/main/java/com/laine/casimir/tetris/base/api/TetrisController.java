@@ -182,7 +182,7 @@ public final class TetrisController {
      *
      * @return A list of {@link TetrisCell} objects.
      */
-    public List<TetrisCell> getAlLCells() {
+    public List<TetrisCell> getAllCells() {
         final List<TetrisCell> squareList = new ArrayList<>(tetrisGame.getPlayfield().getLandedSquares());
         final FallingTetromino fallingTetromino = tetrisGame.getPlayfield().getFallingTetromino();
         if (fallingTetromino != null) {
